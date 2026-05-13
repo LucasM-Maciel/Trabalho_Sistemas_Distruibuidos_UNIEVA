@@ -24,8 +24,6 @@ Os conceitos demonstrados incluem:
 
 O sistema segue o modelo clássico de topologia em **estrela**:
 
-![Diagrama da arquitetura cliente-servidor do chat distribuído](fig2.png)
-
 ```
 Cliente 1 ──┐
 Cliente 2 ──┼──► Servidor Central (TCP) ──► redistribui para todos
@@ -126,10 +124,6 @@ Digite seu apelido: Alice
 Repita o processo em outro terminal para um segundo cliente (ex.: `Bob`).
 
 ---
-
-### Diagrama de Sequência — Fluxo de Mensagens
-
-![Diagrama de sequência do fluxo de mensagens](fig3.png)
 
 ---
 

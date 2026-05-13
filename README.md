@@ -47,10 +47,6 @@ O relatório (`index.html`) aborda os seguintes tópicos:
 
 > Para visualizar o relatório, abra o arquivo `relatorio-sistemas-distribuidos/index.html` em qualquer navegador.
 
-### Arquitetura Conceitual — Aplicação Colaborativa em Tempo Real
-
-![Diagrama de arquitetura conceitual de uma aplicação colaborativa distribuída](relatorio-sistemas-distribuidos/fig1.png)
-
 ---
 
 ## Implementação Prática — Chat Distribuído em Python
