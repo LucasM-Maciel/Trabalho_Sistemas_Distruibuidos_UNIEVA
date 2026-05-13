@@ -49,7 +49,7 @@ O relatório (`index.html`) aborda os seguintes tópicos:
 
 ### Arquitetura Conceitual — Aplicação Colaborativa em Tempo Real
 
-![Diagrama de arquitetura conceitual de uma aplicação colaborativa distribuída](relatorio-sistemas-distribuidos/fig1.svg)
+![Diagrama de arquitetura conceitual de uma aplicação colaborativa distribuída](relatorio-sistemas-distribuidos/fig1.png)
 
 ---
 
