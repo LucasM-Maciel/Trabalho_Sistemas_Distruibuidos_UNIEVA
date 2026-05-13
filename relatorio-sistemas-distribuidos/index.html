@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Acadêmico - Sistemas Distribuídos</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Diagramas convertidos para SVG estático: Mermaid não é mais necessário -->
+</head>
+<body>
+
+    <!-- CAPA -->
+    <div class="cover page-break">
+        <div class="cover-header">
+            UNIVERSIDADE EVANGÉLICA DE GOIÁS - UniEVANGÉLICA<br>
+            LUCAS MARQUES MACIEL
+        </div>
+
+        <div>
+            <div class="cover-title">SISTEMAS DISTRIBUÍDOS E REDES DE COMPUTADORES</div>
+            <div class="cover-subtitle">Estudo de Caso e Implementação Prática: Análise do Google Docs e Desenvolvimento de Aplicação Cliente-Servidor</div>
+        </div>
+
+        <div class="cover-footer">
+            ANÁPOLIS<br>
+            2026
+        </div>
+    </div>
+
+    <!-- SUMÁRIO -->
+    <div class="page-break" id="sumario">
+        <div class="toc-title">SUMÁRIO</div>
+        <ul class="toc-list">
+            <li><a href="#sec1">1. INTRODUÇÃO</a> <span class="dots"></span> <a href="#sec1">3</a></li>
+            <li><a href="#sec2">2. METODOLOGIA</a> <span class="dots"></span> <a href="#sec2">3</a></li>
+            <li><a href="#sec3">3. FUNDAMENTAÇÃO TEÓRICA SOBRE SISTEMAS DISTRIBUÍDOS</a> <span class="dots"></span> <a href="#sec3">4</a></li>
+            <li><a href="#sec31">3.1 Conceito e Definição de Sistemas Distribuídos</a> <span class="dots"></span> <a href="#sec31">4</a></li>
+            <li><a href="#sec32">3.2 Características Fundamentais e Desafios</a> <span class="dots"></span> <a href="#sec32">4</a></li>
+            <li><a href="#sec33">3.3 Paradigmas de Comunicação</a> <span class="dots"></span> <a href="#sec33">4</a></li>
+            <li><a href="#sec34">3.4 Serviços de Nomes</a> <span class="dots"></span> <a href="#sec34">5</a></li>
+            <li><a href="#sec35">3.5 Coordenação, Consistência e Replicação</a> <span class="dots"></span> <a href="#sec35">5</a></li>
+            <li><a href="#sec36">3.6 Arquitetura Orientada a Serviços (SOA)</a> <span class="dots"></span> <a href="#sec36">5</a></li>
+            <li><a href="#sec4">4. ESTUDO DE CASO: ANÁLISE DO GOOGLE DOCS</a> <span class="dots"></span> <a href="#sec4">5</a></li>
+            <li><a href="#sec41">4.1 Aplicações Colaborativas e Sistemas Distribuídos</a> <span class="dots"></span> <a href="#sec41">5</a></li>
+            <li><a href="#sec42">4.2 A Dinâmica da Colaboração em Tempo Real</a> <span class="dots"></span> <a href="#sec42">5</a></li>
+            <li><a href="#sec43">4.3 Transformação Operacional (OT): Abordagem Clássica</a> <span class="dots"></span> <a href="#sec43">6</a></li>
+            <li><a href="#sec44">4.4 Sincronização Cliente-Servidor</a> <span class="dots"></span> <a href="#sec44">6</a></li>
+            <li><a href="#sec45">4.5 Componentes Integrados e o Ecossistema Google</a> <span class="dots"></span> <a href="#sec45">6</a></li>
+            <li><a href="#sec46">4.6 Delimitação Técnica: Fatos Comprovados vs. Inferências</a> <span class="dots"></span> <a href="#sec46">6</a></li>
+            <li><a href="#sec5">5. PROPOSTA DE ARQUITETURA CONCEITUAL</a> <span class="dots"></span> <a href="#sec5">7</a></li>
+            <li><a href="#sec51">5.1 Diagrama de Arquitetura</a> <span class="dots"></span> <a href="#sec51">7</a></li>
+            <li><a href="#sec52">5.2 Explicação das Camadas da Arquitetura Conceitual</a> <span class="dots"></span> <a href="#sec52">8</a></li>
+            <li><a href="#sec6">6. IMPLEMENTAÇÃO PRÁTICA: APLICAÇÃO CLIENTE-SERVIDOR COM MÚLTIPLOS CLIENTES</a> <span class="dots"></span> <a href="#sec6">8</a></li>
+            <li><a href="#sec61">6.1 Objetivo da aplicação desenvolvida</a> <span class="dots"></span> <a href="#sec61">8</a></li>
+            <li><a href="#sec62">6.2 Arquitetura cliente-servidor</a> <span class="dots"></span> <a href="#sec62">8</a></li>
+            <li><a href="#sec63">6.3 Comunicação assíncrona</a> <span class="dots"></span> <a href="#sec63">8</a></li>
+            <li><a href="#sec64">6.4 Mecanismo básico de sincronização</a> <span class="dots"></span> <a href="#sec64">9</a></li>
+            <li><a href="#sec65">6.5 Funcionamento do servidor</a> <span class="dots"></span> <a href="#sec65">9</a></li>
+            <li><a href="#sec66">6.6 Funcionamento do cliente</a> <span class="dots"></span> <a href="#sec66">9</a></li>
+            <li><a href="#sec67">6.7 Relação com os conceitos teóricos</a> <span class="dots"></span> <a href="#sec67">9</a></li>
+            <li><a href="#sec68">6.8 Limitações e melhorias futuras</a> <span class="dots"></span> <a href="#sec68">10</a></li>
+            <li><a href="#sec7">7. CONCLUSÃO</a> <span class="dots"></span> <a href="#sec7">10</a></li>
+            <li><a href="#sec8">8. REFERÊNCIAS BIBLIOGRÁFICAS</a> <span class="dots"></span> <a href="#sec8">11</a></li>
+        </ul>
+    </div>
+
+    <!-- CORPO DO TRABALHO -->
+    <div id="sec1">
+        <h1>1. INTRODUÇÃO</h1>
+        <p>O advento da computação em nuvem e a transição de aplicações locais para ecossistemas distribuídos redefiniram os paradigmas de produtividade e de engenharia de software no século XXI. Nas últimas décadas, o conceito de processamento centralizado cedeu espaço a arquiteturas interconectadas que visam oferecer alta disponibilidade, colaboração em tempo real e compartilhamento de recursos em escala global. Nesse cenário, compreender as bases dos sistemas distribuídos tornou-se essencial, pois essas infraestruturas são desenhadas para ocultar do usuário final uma vasta complexidade de comunicação, roteamento de redes e resolução de conflitos de dados.</p>
+        <p>Um sistema distribuído moderno abstrai as nuances de hardware e software dispersos em redes de computadores, coordenando ações para operar, sob a perspectiva do usuário, como um sistema único e coerente (TANENBAUM; VAN STEEN, 2007). No epicentro dessa evolução de software encontram-se plataformas colaborativas que permitem a edição simultânea e assíncrona de documentos, superando as limitações físicas de redes geográficas.</p>
+        <p>O presente trabalho possui o objetivo de conceituar os fundamentos teóricos de sistemas distribuídos e redes de computadores, abordando tópicos como transparência, escalabilidade, concorrência, consistência e replicação. Para materializar os conceitos teóricos descritos, será realizado um estudo de caso conceitual sobre aplicações colaborativas em tempo real, utilizando o Google Docs como principal referência analítica. Adicionalmente, será apresentada a implementação prática de uma aplicação de mensagens (chat) distribuída simples, desenvolvida para evidenciar o funcionamento do modelo cliente-servidor sob protocolos de rede reais, aliando a pesquisa acadêmica à engenharia de software aplicada.</p>
+    </div>
+
+    <div id="sec2">
+        <h1>2. METODOLOGIA</h1>
+        <p>O desenvolvimento deste relatório fundamenta-se em uma abordagem mista e estruturada em quatro etapas. Primeiramente, realizou-se uma pesquisa bibliográfica focada na revisão da literatura clássica de Sistemas Distribuídos e Redes de Computadores, utilizando como base primária os postulados teóricos de Tanenbaum e Van Steen (2007) e Coulouris et al. (2013) para a construção dos conceitos gerais.</p>
+        <p>Em seguida, aplicou-se a análise documental de artigos científicos, documentações técnicas e publicações da indústria de software sobre algoritmos de resolução de conflitos e arquiteturas de nuvem.</p>
+        <p>A terceira etapa consiste em um estudo de caso qualitativo direcionado à análise de editores colaborativos, tomando o ecossistema do Google Docs como referência. Uma vez que os pormenores exatos da arquitetura interna contemporânea do Google Docs são proprietários, a metodologia de análise adota uma separação rigorosa entre fatos comprovados, conceitos teóricos gerais e inferências técnicas.</p>
+        <p>A quarta e última etapa consistiu no desenvolvimento de uma implementação prática e funcional utilizando a linguagem de programação Python. A criação da aplicação cliente-servidor visou validar empiricamente os modelos de comunicação assíncrona, sincronização de processos e concorrência sobre pilhas de protocolos TCP/IP, aproximando as fundações teóricas da prática computacional (O código-fonte completo acompanha as entregas complementares deste relatório em anexo).</p>
+    </div>
+
+    <div id="sec3">
+        <h1>3. FUNDAMENTAÇÃO TEÓRICA SOBRE SISTEMAS DISTRIBUÍDOS</h1>
+        
+        <h2 id="sec31">3.1 Conceito e Definição de Sistemas Distribuídos</h2>
+        <p>A literatura acadêmica define um sistema distribuído como uma coleção de elementos de computação autônomos interconectados, que colaboram entre si comunicando-se exclusivamente mediante a passagem de mensagens, e que aparecem aos seus usuários como uma infraestrutura computacional coesa e única (TANENBAUM; VAN STEEN, 2007; COULOURIS et al., 2013). Os conceitos teóricos gerais apontam que nesses ecossistemas não existe a premissa de um relógio global perfeitamente sincronizado, e os componentes estão sujeitos a falhas parciais e independentes.</p>
+
+        <h2 id="sec32">3.2 Características Fundamentais e Desafios</h2>
+        <p>A engenharia de um sistema distribuído deve mitigar a complexidade gerada pela dispersão de nós através de características essenciais. A transparência refere-se à capacidade do sistema de ocultar os detalhes de distribuição, destacando-se a transparência de acesso, de localização, de concorrência e de replicação. A escalabilidade é uma medida vital que determina quão bem o sistema suporta o crescimento, dividindo-se em escalabilidade de tamanho, geográfica e administrativa. Para alcançar isso, sistemas adotam técnicas de replicação e mecanismos assíncronos.</p>
+        <p>Além disso, a tolerância a falhas é a resiliência para continuar operando diante de falhas estatisticamente inevitáveis. A concorrência e o compartilhamento de recursos são os propósitos centrais que motivam essas redes, facilitando o acesso concorrente a recursos valiosos sem corromper o estado do sistema. Por fim, a heterogeneidade lida com a variedade de infraestruturas, garantindo que máquinas e redes diferentes operem de forma interoperável.</p>
+
+        <h2 id="sec33">3.3 Paradigmas de Comunicação</h2>
+        <p>A interação entre nós utiliza os protocolos de redes de computadores como meio de transporte subjacente. A comunicação síncrona bloqueia o cliente até o retorno do servidor. No modelo assíncrono, as requisições são despachadas e o cliente continua a operar livremente. Em redes de longa distância, a comunicação assíncrona é teoricamente preferível para mascarar as limitações impostas pela latência (TANENBAUM; VAN STEEN, 2007).</p>
+
+        <h2 id="sec34">3.4 Serviços de Nomes</h2>
+        <p>O conceito de nomeação é a fundação para alcançar a transparência de localização. Um serviço de nomes recebe resoluções amigáveis e mapeia esses endereços lógicos para componentes físicos de rede. Internamente, arquiteturas robustas utilizam serviços de coordenação focados em alta disponibilidade para registrar a localização de serviços em clusters (BURROWS, 2006).</p>
+
+        <h2 id="sec35">3.5 Coordenação, Consistência e Replicação</h2>
+        <p>A duplicação de dados serve tanto para melhorar o desempenho quanto a tolerância a falhas. Entretanto, isso introduz o desafio da consistência. Sob o Teorema CAP (Consistência, Disponibilidade e Tolerância a Partições), é necessário equilibrar garantias. Muitos sistemas adotam um modelo de consistência eventual, priorizando a operação ininterrupta sob a premissa de que os estados convergirão em um dado momento.</p>
+
+        <h2 id="sec36">3.6 Arquitetura Orientada a Serviços (SOA)</h2>
+        <p>Com a evolução da computação, desenvolveu-se a SOA, um padrão teórico no qual componentes sistêmicos são abstraídos em serviços menores, modulares e fracamente acoplados (AWS, 2024). Esses serviços comunicam-se via protocolos padronizados, permitindo que funcionalidades restritas sejam atualizadas de maneira independente.</p>
+    </div>
+
+    <div id="sec4">
+        <h1>4. ESTUDO DE CASO: ANÁLISE DO GOOGLE DOCS SOB A ÓTICA DOS SISTEMAS DISTRIBUÍDOS</h1>
+        
+        <h2 id="sec41">4.1 Aplicações Colaborativas e Sistemas Distribuídos</h2>
+        <p>Aplicações colaborativas modernas representam a materialização dos conceitos clássicos de sistemas distribuídos. Em uma arquitetura conceitual, ferramentas de edição, como o Google Docs, abstraem a complexidade da rede e da distribuição de recursos, oferecendo transparência ao usuário final (TANENBAUM; VAN STEEN, 2007). Sob a ótica teórica, o sistema lida ativamente com a escolha entre Consistência e Disponibilidade: em modos de edição colaborativa online, é plausível considerar que a aplicação priorize mecanismos de convergência de estado; já em cenários offline, a aplicação favorece a disponibilidade, armazenando operações localmente para sincronização posterior.</p>
+
+        <h2 id="sec42">4.2 A Dinâmica da Colaboração em Tempo Real</h2>
+        <p>O desafio central de um editor colaborativo não reside na simples transmissão de texto, mas na resolução de conflitos gerados por edições simultâneas. Quando múltiplos usuários inserem caracteres em intervalos de tempo muito próximos, a latência inerente às redes de computadores faz com que as operações cheguem em ordens distintas. Sem um mecanismo de controle de concorrência, o estado local de cada cliente divergiria (SYSTEM DESIGN HANDBOOK, 2024). Para mitigar esse problema, aplicações colaborativas em tempo real exigem modelos de concorrência otimista que permitam reconciliar edições concorrentes de maneira fluida.</p>
+
+        <h2 id="sec43">4.3 Transformação Operacional (OT): Abordagem Clássica</h2>
+        <p>A Transformação Operacional (OT - Operational Transformation) é uma abordagem clássica da literatura para editores colaborativos em tempo real (ELLIS; GIBBS, 1989), sendo frequentemente usada como referência conceitual para analisar sistemas como o Google Docs. Em vez de sincronizar documentos completos, sistemas baseados em OT transmitem operações granulares (deltas), contendo o tipo de ação e a posição.</p>
+        <p>Com base em princípios de sistemas distribuídos, o ciclo conceitual da OT pode ser descrito da seguinte forma: primeiramente ocorre a predição local, onde o cliente aplica a edição na interface instantaneamente. Após isso ocorre a transformação central, em que as operações são enviadas ao servidor que atua como árbitro, transformando o índice de posição da operação recebida com base nas operações concorrentes já processadas (SUN et al., 1998). Por fim, na reconciliação, o servidor faz o broadcast da operação transformada para os demais clientes, garantindo a convergência forte.</p>
+
+        <h2 id="sec44">4.4 Sincronização Cliente-Servidor</h2>
+        <p>Para garantir uma experiência fluida, a sincronização contínua exige baixa latência perceptível ao usuário, superando os limites do protocolo HTTP tradicional de requisição-resposta. Em uma arquitetura conceitual, é plausível considerar a adoção de tecnologias de comunicação bidirecional persistente. Embora não se deva afirmar categoricamente o uso exclusivo de uma ferramenta, tecnologias equivalentes poderiam ser utilizadas, sendo o WebSocket o protocolo padrão da indústria para fornecer canais full-duplex que permitem ao servidor empurrar (push) as operações transformadas para os clientes ativamente (ALGO MASTER, 2024).</p>
+
+        <h2 id="sec45">4.5 Componentes Integrados e o Ecossistema Google</h2>
+        <p>Tecnologias como Bigtable, Spanner e Chubby são amplamente documentadas como pilares estruturais do ecossistema Google para o armazenamento de logs em larga escala, controle de metadados relacionais e resolução de nomes/bloqueios distribuídos, respectivamente (CHANG et al., 2008; BURROWS, 2006). Contudo, em uma arquitetura conceitual focada estritamente no Google Docs, pode-se inferir que o design faz uso dessas ou de tecnologias equivalentes para gerenciar a persistência do histórico de versões e as permissões de acesso, embora a presença interna exata exija fontes oficiais específicas do produto. O armazenamento do histórico conceitualmente funciona como um log append-only, permitindo auditoria e reversão a qualquer versão anterior.</p>
+
+        <h2 id="sec46">4.6 Delimitação Técnica: Fatos Comprovados vs. Inferências</h2>
+        <p>Para manter o rigor metodológico e a precisão acadêmica, estabelece-se a seguinte distinção analítica entre as camadas de informação apresentadas neste estudo.</p>
+        
+        <p><strong>Fatos comprovados por fontes:</strong></p>
+        <ul>
+            <li>O ecossistema do Google utiliza infraestruturas como Bigtable (para armazenamento massivo não relacional orientado a colunas) e Chubby (serviço de coordenação e lock distribuído) em sua infraestrutura global (CHANG et al., 2008; BURROWS, 2006).</li>
+            <li>A Transformação Operacional (OT) é historicamente documentada como mecanismo empregado em sistemas colaborativos como o Google Wave e é frequentemente associada, na literatura técnica, à análise de editores colaborativos como o Google Docs (FRASER, 2009).</li>
+        </ul>
+
+        <p><strong>Conceitos teóricos gerais:</strong></p>
+        <ul>
+            <li>Princípios de Sistemas Distribuídos, como modelos de consistência eventual, replicação de dados para tolerância a falhas, algoritmos de controle de concorrência otimista (OT e CRDT) e vantagens de canais bidirecionais (TANENBAUM; VAN STEEN, 2007; SUN et al., 1998).</li>
+        </ul>
+
+        <p><strong>Inferências técnicas aplicadas ao Google Docs:</strong></p>
+        <ul>
+            <li>Em uma arquitetura conceitual moderna do Google Docs, pode-se inferir a separação entre um estado efêmero focado em memória (para resolver conflitos visuais imediatos) e um banco de dados persistente de logs para durabilidade.</li>
+            <li>É plausível considerar o uso intensivo de WebSockets ou tecnologias bidirecionais equivalentes para a propagação da sincronia cliente-servidor.</li>
+            <li>Pode-se inferir o uso de balanceadores de carga inteligentes para garantir que todos os usuários editando o mesmo documento sejam roteados para a mesma instância do servidor de colaboração (sticky sessions), assegurando a ordenação algorítmica correta.</li>
+        </ul>
+    </div>
+
+    <div id="sec5">
+        <h1>5. PROPOSTA DE ARQUITETURA CONCEITUAL E DIAGRAMAÇÃO LÓGICA</h1>
+        <p>Para consolidar os conceitos abordados, propõe-se o diagrama de uma arquitetura conceitual para uma aplicação de colaboração em tempo real. Este diagrama não afirma ser a topologia oficial fechada do Google Docs, mas sim uma representação inferida e academicamente embasada nos princípios de sistemas distribuídos aplicados a este domínio.</p>
+
+        <h2 id="sec51">5.1 Diagrama de Arquitetura</h2>
+        
+        <figure>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 690 506" style="max-width:14cm;width:100%;display:block;margin:0 auto">
+              <defs>
+                <style>.sg{fill:#f5f5f5;stroke:#aaa;stroke-width:1;stroke-dasharray:5,3}.bx{fill:#dae8fc;stroke:#6c8ebf;stroke-width:1.5}.cb{fill:#dae8fc;stroke:none}.ce{fill:#c5dff8;stroke:#6c8ebf;stroke-width:1.5}.ed{fill:none;stroke:#555;stroke-width:1.4}.th{font:bold 12px Arial,sans-serif;fill:#000;text-anchor:middle;dominant-baseline:middle}.ts{font:10px Arial,sans-serif;fill:#444;text-anchor:middle;dominant-baseline:middle}.tg{font:bold 10px Arial,sans-serif;fill:#666}.tl{font:9px Arial,sans-serif;fill:#333;text-anchor:middle}.lb{fill:#fff;opacity:.85}</style>
+                <marker id="f1a" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#555"/></marker>
+                <marker id="f1b" markerWidth="9" markerHeight="7" refX="1" refY="3.5" orient="auto"><polygon points="9 0,0 3.5,9 7" fill="#555"/></marker>
+              </defs>
+              <!-- Camada de Clientes -->
+              <rect class="sg" x="4" y="4" width="682" height="115" rx="8"/>
+              <text class="tg" x="14" y="19">Camada de Clientes</text>
+              <rect class="bx" x="28" y="22" width="198" height="86" rx="6"/>
+              <text class="th" x="127" y="56">Cliente Web</text>
+              <text class="ts" x="127" y="76">Motor OT Local</text>
+              <rect class="bx" x="464" y="22" width="198" height="86" rx="6"/>
+              <text class="th" x="563" y="56">Cliente Mobile</text>
+              <text class="ts" x="563" y="76">Motor OT Local</text>
+              <!-- Camada de Borda -->
+              <rect class="sg" x="4" y="128" width="682" height="82" rx="8"/>
+              <text class="tg" x="14" y="143">Camada de Borda e Gateway</text>
+              <rect class="bx" x="183" y="145" width="324" height="54" rx="6"/>
+              <text class="th" x="345" y="166">Balanceador de Carga</text>
+              <text class="ts" x="345" y="184">e Gateway Bidirecional</text>
+              <!-- Arrows clients <-> LB -->
+              <line class="ed" x1="127" y1="108" x2="240" y2="145" marker-end="url(#f1a)" marker-start="url(#f1b)"/>
+              <rect class="lb" x="138" y="121" width="64" height="13" rx="2"/>
+              <text class="tl" x="170" y="128">WebSocket</text>
+              <line class="ed" x1="563" y1="108" x2="452" y2="145" marker-end="url(#f1a)" marker-start="url(#f1b)"/>
+              <rect class="lb" x="472" y="121" width="64" height="13" rx="2"/>
+              <text class="tl" x="504" y="128">WebSocket</text>
+              <!-- Serviços de Colaboração SOA -->
+              <rect class="sg" x="4" y="219" width="682" height="155" rx="8"/>
+              <text class="tg" x="14" y="234">Serviços de Colaboração (SOA)</text>
+              <!-- Auth -->
+              <rect class="bx" x="14" y="240" width="178" height="120" rx="6"/>
+              <text class="th" x="103" y="288">Serviço de</text>
+              <text class="th" x="103" y="308">IAM / Auth</text>
+              <text class="ts" x="103" y="332">Controle de Permissões</text>
+              <!-- OT Server -->
+              <rect class="bx" x="252" y="240" width="195" height="120" rx="6"/>
+              <text class="th" x="349" y="283">Servidor de</text>
+              <text class="th" x="349" y="303">Colaboração</text>
+              <text class="ts" x="349" y="323">Motor de Transformação</text>
+              <text class="ts" x="349" y="339">e Ordenação</text>
+              <!-- SessionStore cylinder -->
+              <rect class="cb" x="508" y="255" width="166" height="94"/>
+              <line x1="508" y1="255" x2="508" y2="349" stroke="#6c8ebf" stroke-width="1.5"/>
+              <line x1="674" y1="255" x2="674" y2="349" stroke="#6c8ebf" stroke-width="1.5"/>
+              <ellipse class="ce" cx="591" cy="349" rx="83" ry="11"/>
+              <ellipse class="ce" cx="591" cy="255" rx="83" ry="11"/>
+              <text class="th" x="591" y="292">Armazenamento</text>
+              <text class="ts" x="591" y="312">em memória</text>
+              <text class="ts" x="591" y="330">(estado efêmero)</text>
+              <!-- Arrow LB -> Auth -->
+              <line class="ed" x1="258" y1="199" x2="160" y2="240" marker-end="url(#f1a)"/>
+              <rect class="lb" x="172" y="211" width="97" height="13" rx="2"/>
+              <text class="tl" x="220" y="218">Validação HTTP/REST</text>
+              <!-- Arrow LB -> OT -->
+              <line class="ed" x1="378" y1="199" x2="360" y2="240" marker-end="url(#f1a)"/>
+              <rect class="lb" x="328" y="211" width="114" height="13" rx="2"/>
+              <text class="tl" x="385" y="218">Roteamento de Sessão</text>
+              <!-- Arrow OT <-> Session -->
+              <line class="ed" x1="447" y1="305" x2="508" y2="305" marker-end="url(#f1a)" marker-start="url(#f1b)"/>
+              <rect class="lb" x="438" y="277" width="106" height="13" rx="2"/>
+              <text class="tl" x="491" y="284">Sincroniza Cursores</text>
+              <!-- Camada de Persistência -->
+              <rect class="sg" x="4" y="383" width="682" height="119" rx="8"/>
+              <text class="tg" x="14" y="398">Camada de Persistência Distribuída</text>
+              <!-- DistributedLog cylinder -->
+              <rect class="cb" x="50" y="410" width="196" height="76"/>
+              <line x1="50"  y1="410" x2="50"  y2="486" stroke="#6c8ebf" stroke-width="1.5"/>
+              <line x1="246" y1="410" x2="246" y2="486" stroke="#6c8ebf" stroke-width="1.5"/>
+              <ellipse class="ce" cx="148" cy="486" rx="98" ry="11"/>
+              <ellipse class="ce" cx="148" cy="410" rx="98" ry="11"/>
+              <text class="th" x="148" y="444">Banco distribuído de</text>
+              <text class="ts" x="148" y="463">logs de operações</text>
+              <!-- MetaStore cylinder -->
+              <rect class="cb" x="444" y="410" width="196" height="76"/>
+              <line x1="444" y1="410" x2="444" y2="486" stroke="#6c8ebf" stroke-width="1.5"/>
+              <line x1="640" y1="410" x2="640" y2="486" stroke="#6c8ebf" stroke-width="1.5"/>
+              <ellipse class="ce" cx="542" cy="486" rx="98" ry="11"/>
+              <ellipse class="ce" cx="542" cy="410" rx="98" ry="11"/>
+              <text class="th" x="542" y="444">Banco distribuído de</text>
+              <text class="ts" x="542" y="463">metadados e permissões</text>
+              <!-- Arrow OT -> DistLog -->
+              <line class="ed" x1="310" y1="360" x2="192" y2="399" marker-end="url(#f1a)"/>
+              <rect class="lb" x="147" y="386" width="116" height="13" rx="2"/>
+              <text class="tl" x="205" y="393">Gravação assíncrona</text>
+              <!-- Arrow Auth -> MetaStore -->
+              <line class="ed" x1="160" y1="360" x2="480" y2="399" marker-end="url(#f1a)"/>
+              <rect class="lb" x="299" y="362" width="116" height="13" rx="2"/>
+              <text class="tl" x="357" y="369">Consulta permissões</text>
+            </svg>
+            <figcaption>Figura 1 — Arquitetura conceitual de uma aplicação colaborativa em tempo real<br>Fonte: Elaborado pelo autor com base na literatura de sistemas distribuídos.</figcaption>
+        </figure>
+
+        <h2 id="sec52">5.2 Explicação das Camadas da Arquitetura Conceitual</h2>
+        <p>A <strong>Camada de Clientes</strong> engloba instâncias nos dispositivos dos usuários. Cada cliente possui lógica local capaz de aplicar edições de forma otimista e armazenar operações pendentes. A <strong>Camada de Borda e Gateway</strong> serve como ponto de entrada que distribui o tráfego geograficamente, gerenciando as conexões contínuas e bidirecionais necessárias para empurrar atualizações em tempo real.</p>
+        <p>Os <strong>Serviços de Colaboração</strong>, utilizando o paradigma Orientado a Serviços (SOA), dividem responsabilidades. Um serviço autentica e autoriza o acesso, enquanto o Servidor de Colaboração atua como árbitro centralizador de operações. Tecnologias de armazenamento em memória auxiliam a orquestrar cursores com extrema rapidez. Finalmente, a <strong>Camada de Persistência</strong> é responsável pela durabilidade e consistência final dos dados, dividindo-se em um banco de metadados e permissões, e um banco focado em logs escaláveis para gravar cada evento/operação isolada.</p>
+    </div>
+
+    <div id="sec6">
+        <h1>6. IMPLEMENTAÇÃO PRÁTICA: APLICAÇÃO CLIENTE-SERVIDOR COM MÚLTIPLOS CLIENTES</h1>
+        <p>Conforme previsto nas etapas do projeto acadêmico, esta seção documenta a implementação prática de uma aplicação de troca de mensagens (<em>chat</em> distribuído) em linguagem Python, construída a partir da interface de <em>sockets</em> da camada de transporte. Nota-se que, visando assegurar a fluidez de leitura deste relatório, o código-fonte completo da aplicação encontra-se estruturado e anexado de forma separada à entrega principal deste projeto.</p>
+
+        <h2 id="sec61">6.1 Objetivo da aplicação desenvolvida</h2>
+        <p>A presente implementação tem por finalidade materializar e demonstrar, em pequena escala, o comportamento dos principais conceitos discutidos teoricamente: a estruturação de sistemas distribuídos, a troca de mensagens na comunicação em rede, o tratamento de concorrência computacional, a efetivação da comunicação assíncrona orientada a eventos e, sobretudo, as metodologias clássicas de sincronização.</p>
+
+        <h2 id="sec62">6.2 Arquitetura cliente-servidor</h2>
+        <p>Adotou-se o paradigma clássico de arquitetura cliente-servidor (COULOURIS et al., 2013). O sistema foi codificado em dois componentes distintos: um <strong>Servidor Central</strong> e aplicações <strong>Clientes</strong> autônomas. O servidor age como um nó roteador persistente encarregado de vincular-se a um endereço (<em>bind</em>), aceitar conexões baseadas no protocolo TCP e orquestrar a recepção e a subsequente redistribuição de cada mensagem expedida na rede de clientes, estabelecendo assim uma malha de comunicação do tipo <em>estrela</em>.</p>
+
+        <h2 id="sec63">6.3 Comunicação assíncrona</h2>
+        <p>A necessidade da comunicação assíncrona se torna imperativa para sistemas colaborativos nos quais a chegada de informações é imprevisível (TANENBAUM; VAN STEEN, 2007). No protótipo desenvolvido, o comportamento assíncrono é efetivado por intermédio da criação de <em>threads</em> (linhas de execução independentes). Dessa forma, o servidor torna-se habilitado a recepcionar <em>bytes</em> de variados clientes concorrentemente, sem bloquear o funcionamento geral do servidor, pois cada conexão é tratada em uma thread independente. Igualmente, cada cliente possui capacidade computacional de despachar comandos via terminal e, em tempo concorrente, receber os dados repassados pelo servidor central.</p>
+
+        <h2 id="sec64">6.4 Mecanismo básico de sincronização</h2>
+        <p>Pela natureza do sistema multithread, os recursos vitais acessados por processos paralelos devem ser monitorados contra condições de corrida (<em>race conditions</em>). O principal recurso compartilhado deste <em>software</em> é a estrutura de dados que mapeia os clientes (conexões ativas) no servidor. Para tal finalidade, incorporou-se a sincronização através da classe <code>threading.Lock</code> (exclusão mútua ou Mutex). Sempre que uma <em>thread</em> necessita adicionar um novo cliente recém-conectado, remover um dispositivo acidentado, ou ler todos os canais para redistribuir dados na rede, o bloqueio do <em>lock</em> é requisitado, assegurando que o estado global não seja corrompido durante modificações simultâneas em frações de milissegundos.</p>
+
+        <h2 id="sec65">6.5 Funcionamento do servidor</h2>
+        <p>O raciocínio operacional do lado do servidor atende à seguinte cronologia lógica:</p>
+        <ul>
+            <li>Inicializa um <em>socket</em> configurado para operar na rede via padrão IPv4 e TCP;</li>
+            <li>Inicia a audição por propostas de conexões externas;</li>
+            <li>Cria de forma isolada uma <em>thread</em> direcionada à interface lógica de cada cliente ingressante;</li>
+            <li>Recebe passivamente o <em>buffer</em> de mensagens do remetente;</li>
+            <li>Redistribui os dados originados aos demais nós contidos na lista protegida de conexões;</li>
+            <li>Ao constatar o término de envio/recebimento de um participante, o servidor remove com resiliência o cliente desconectado da base ativa e extingue sua <em>thread</em> respectiva.</li>
+        </ul>
+
+        <h2 id="sec66">6.6 Funcionamento do cliente</h2>
+        <p>No outro extremo do canal, o elemento cliente obedece à lógica estrita de envio e recepção na arquitetura distribuída:</p>
+        <ul>
+            <li>Solicita acesso informando o endereço lógico e a porta estabelecidos pelo nó central;</li>
+            <li>Evoca e delega para uma segunda <em>thread</em> a responsabilidade isolada de escutar e receber os pacotes de dados provenientes da rede;</li>
+            <li>A <em>thread</em> primária do sistema captura, via linha de comando, as sentenças digitadas pelo usuário e impulsiona o seu envio (função de escrita no <em>socket</em>);</li>
+            <li>Conduz ao encerramento apropriado da sessão e da conexão TCP caso receba interrupções de saída do usuário.</li>
+        </ul>
+
+        <h2 id="sec67">6.7 Relação com os conceitos teóricos</h2>
+        <p>Este sistema prático atua como a ratificação simplificada da literatura. Nota-se de maneira material a aplicação da comunicação entre processos (IPC) por conta da utilização da camada de transporte (protocolo TCP/IP) (TANENBAUM; VAN STEEN, 2007). Aborda-se também o desafio da concorrência e sua mitigação via mecanismos estritos de sincronização, representados pelo <em>lock</em> que protege o estado da memória do servidor de condições de corrida (COULOURIS et al., 2013). Há, ademais, a garantia de uma tolerância a falhas básica: na eventualidade de uma ruptura de conexão de um usuário final, o tratamento de exceção isolado em sua respectiva <em>thread</em> permite a higienização dos recursos daquele cliente e a preservação total da disponibilidade do servidor para os usuários remanescentes.</p>
+
+        <h2 id="sec68">6.8 Limitações e melhorias futuras</h2>
+        <p>No que tange aos aspectos arquitetônicos restritivos e às propensões de aprimoramento deste estudo de caso programático, cita-se:</p>
+        <ul>
+            <li><strong>Limitações:</strong> Observa-se a ausência de métodos para autenticação segura; os dados trafegam pela rede sem criptografia em formato de texto plano; não se contempla mecanismo de persistência estruturada do registro de mensagens; o sistema baseia-se em uma arquitetura centralizada (introduzindo o servidor como ponto único de falha); e a interação limita-se a uma interface de linha de comando.</li>
+            <li><strong>Melhorias Futuras:</strong> Sugere-se a expansão adicionando sistemas de login para autenticação e autorização de usuários; a adoção de criptografia via protocolo TLS; a inserção de histórico salvo em bancos relacionais ou distribuídos; o desenvolvimento de uma interface gráfica (GUI) ou Web; a adoção de um arranjo com replicação de estado do servidor para maior escalabilidade; bem como uma suíte de registros de <em>logs</em> para rastreabilidade e monitoramento.</li>
+        </ul>
+
+        <figure>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 690 448" style="max-width:14cm;width:100%;display:block;margin:0 auto">
+              <defs>
+                <style>.sg2{fill:#f5f5f5;stroke:#aaa;stroke-width:1;stroke-dasharray:5,3}.bx2{fill:#dae8fc;stroke:#6c8ebf;stroke-width:1.5}.bxg{fill:#e8f4e8;stroke:#82b366;stroke-width:1.5}.ed2{fill:none;stroke:#555;stroke-width:1.4}.edd{fill:none;stroke:#888;stroke-width:1.4;stroke-dasharray:6,3}.th2{font:bold 12px Arial,sans-serif;fill:#000;text-anchor:middle;dominant-baseline:middle}.ts2{font:10px Arial,sans-serif;fill:#444;text-anchor:middle;dominant-baseline:middle}.tg2{font:bold 10px Arial,sans-serif;fill:#666}.tl2{font:9px Arial,sans-serif;fill:#333;text-anchor:middle}.lb2{fill:#fff;opacity:.85}</style>
+                <marker id="f2a" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#555"/></marker>
+                <marker id="f2b" markerWidth="9" markerHeight="7" refX="1" refY="3.5" orient="auto"><polygon points="9 0,0 3.5,9 7" fill="#555"/></marker>
+                <marker id="f2c" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#888"/></marker>
+              </defs>
+              <!-- Camada de Clientes (left) -->
+              <rect class="sg2" x="4" y="4" width="248" height="440" rx="8"/>
+              <text class="tg2" x="14" y="19">Camada de Clientes</text>
+              <rect class="bx2" x="18" y="28" width="220" height="82" rx="6"/>
+              <text class="th2" x="128" y="62">Cliente 1</text>
+              <text class="ts2" x="128" y="82">Thread Leitura e Envio</text>
+              <rect class="bx2" x="18" y="183" width="220" height="82" rx="6"/>
+              <text class="th2" x="128" y="217">Cliente 2</text>
+              <text class="ts2" x="128" y="237">Thread Leitura e Envio</text>
+              <rect class="bx2" x="18" y="338" width="220" height="82" rx="6"/>
+              <text class="th2" x="128" y="372">Cliente N</text>
+              <text class="ts2" x="128" y="392">Thread Leitura e Envio</text>
+              <!-- Servidor Central (right) -->
+              <rect class="sg2" x="260" y="4" width="426" height="440" rx="8"/>
+              <text class="tg2" x="270" y="19">Servidor Central</text>
+              <!-- Socket -->
+              <rect class="bxg" x="310" y="22" width="320" height="60" rx="6"/>
+              <text class="th2" x="470" y="46">Socket Principal TCP</text>
+              <text class="ts2" x="470" y="66">Aguardando Conexões</text>
+              <!-- Threads -->
+              <rect class="bx2" x="275" y="140" width="155" height="60" rx="6"/>
+              <text class="th2" x="352" y="165">Thread do</text>
+              <text class="ts2" x="352" y="183">Cliente 1</text>
+              <rect class="bx2" x="275" y="263" width="155" height="60" rx="6"/>
+              <text class="th2" x="352" y="288">Thread do</text>
+              <text class="ts2" x="352" y="306">Cliente 2</text>
+              <rect class="bx2" x="275" y="358" width="155" height="60" rx="6"/>
+              <text class="th2" x="352" y="383">Thread do</text>
+              <text class="ts2" x="352" y="401">Cliente N</text>
+              <!-- Lista compartilhada -->
+              <rect class="bxg" x="468" y="210" width="200" height="88" rx="6"/>
+              <text class="th2" x="568" y="244">Lista de Clientes</text>
+              <text class="ts2" x="568" y="264">com Lock Mutex</text>
+              <text class="ts2" x="568" y="282">(recurso compartilhado)</text>
+              <!-- Arrows clients <-> threads -->
+              <line class="ed2" x1="238" y1="69" x2="275" y2="170" marker-end="url(#f2a)" marker-start="url(#f2b)"/>
+              <rect class="lb2" x="221" y="111" width="82" height="13" rx="2"/>
+              <text class="tl2" x="262" y="118">Conexão TCP</text>
+              <line class="ed2" x1="238" y1="224" x2="275" y2="293" marker-end="url(#f2a)" marker-start="url(#f2b)"/>
+              <rect class="lb2" x="221" y="251" width="82" height="13" rx="2"/>
+              <text class="tl2" x="262" y="258">Conexão TCP</text>
+              <line class="ed2" x1="238" y1="379" x2="275" y2="388" marker-end="url(#f2a)" marker-start="url(#f2b)"/>
+              <rect class="lb2" x="221" y="378" width="82" height="13" rx="2"/>
+              <text class="tl2" x="262" y="385">Conexão TCP</text>
+              <!-- Arrows threads -> Lista -->
+              <line class="ed2" x1="430" y1="170" x2="468" y2="235" marker-end="url(#f2a)"/>
+              <rect class="lb2" x="415" y="193" width="82" height="13" rx="2"/>
+              <text class="tl2" x="456" y="200">Lock protegido</text>
+              <line class="ed2" x1="430" y1="293" x2="468" y2="265" marker-end="url(#f2a)"/>
+              <rect class="lb2" x="415" y="272" width="82" height="13" rx="2"/>
+              <text class="tl2" x="456" y="279">Lock protegido</text>
+              <line class="ed2" x1="430" y1="388" x2="468" y2="290" marker-end="url(#f2a)"/>
+              <rect class="lb2" x="432" y="335" width="82" height="13" rx="2"/>
+              <text class="tl2" x="473" y="342">Lock protegido</text>
+              <!-- Dashed: Socket -> Threads -->
+              <line class="edd" x1="385" y1="82" x2="352" y2="140" marker-end="url(#f2c)"/>
+              <line class="edd" x1="450" y1="82" x2="352" y2="263" marker-end="url(#f2c)"/>
+              <line class="edd" x1="520" y1="82" x2="352" y2="358" marker-end="url(#f2c)"/>
+              <rect class="lb2" x="354" y="96" width="112" height="13" rx="2"/>
+              <text class="tl2" x="410" y="103">Delega conexão para</text>
+            </svg>
+            <figcaption>Figura 2 — Arquitetura cliente-servidor do chat distribuído<br>Fonte: Elaborado pelo autor.</figcaption>
+        </figure>
+
+        <br>
+
+        <figure>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 330" style="max-width:14cm;width:100%;display:block;margin:0 auto">
+              <defs>
+                <style>.pb{fill:#dae8fc;stroke:#6c8ebf;stroke-width:1.5}.ll{stroke:#bbb;stroke-width:1;stroke-dasharray:5,4}.av{fill:#e8e8ff;stroke:#888;stroke-width:1}.ms{fill:none;stroke:#333;stroke-width:1.4}.mr{fill:none;stroke:#333;stroke-width:1.4;stroke-dasharray:5,3}.th3{font:bold 12px Arial,sans-serif;fill:#000;text-anchor:middle;dominant-baseline:middle}.tl3{font:9.5px Arial,sans-serif;fill:#333;dominant-baseline:middle}.lb3{fill:#fff;opacity:.9}</style>
+                <marker id="f3a" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#333"/></marker>
+              </defs>
+              <!-- Participant boxes (lifelines at x=60,220,408,570) -->
+              <rect class="pb" x="10"  y="8" width="100" height="42" rx="5"/>
+              <text class="th3" x="60"  y="29">Cliente 1</text>
+              <rect class="pb" x="155" y="8" width="130" height="42" rx="5"/>
+              <text class="th3" x="220" y="29">Servidor Central</text>
+              <rect class="pb" x="358" y="8" width="100" height="42" rx="5"/>
+              <text class="th3" x="408" y="29">Cliente 2</text>
+              <rect class="pb" x="520" y="8" width="100" height="42" rx="5"/>
+              <text class="th3" x="570" y="29">Cliente 3</text>
+              <!-- Lifelines -->
+              <line class="ll" x1="60"  y1="50" x2="60"  y2="330"/>
+              <line class="ll" x1="220" y1="50" x2="220" y2="330"/>
+              <line class="ll" x1="408" y1="50" x2="408" y2="330"/>
+              <line class="ll" x1="570" y1="50" x2="570" y2="330"/>
+              <!-- Activation box on Servidor -->
+              <rect class="av" x="210" y="100" width="20" height="188"/>
+              <!-- Message 1: C1 -> SC -->
+              <line class="ms" x1="60" y1="108" x2="210" y2="108" marker-end="url(#f3a)"/>
+              <rect class="lb3" x="63" y="96" width="120" height="13" rx="2"/>
+              <text class="tl3" x="65" y="103">Envia mensagem TCP</text>
+              <!-- Message 2: SC -> SC (Adquire Lock) -->
+              <path class="mr" d="M230,148 Q278,148 278,163 Q278,178 230,178" marker-end="url(#f3a)"/>
+              <rect class="lb3" x="234" y="146" width="112" height="13" rx="2"/>
+              <text class="tl3" x="236" y="153">Adquire Lock na lista</text>
+              <!-- Message 3: SC -> C2 -->
+              <line class="ms" x1="230" y1="210" x2="408" y2="210" marker-end="url(#f3a)"/>
+              <rect class="lb3" x="246" y="198" width="132" height="13" rx="2"/>
+              <text class="tl3" x="248" y="205">Redistribui a mensagem</text>
+              <!-- Message 4: SC -> C3 -->
+              <line class="ms" x1="230" y1="245" x2="570" y2="245" marker-end="url(#f3a)"/>
+              <rect class="lb3" x="354" y="233" width="132" height="13" rx="2"/>
+              <text class="tl3" x="356" y="240">Redistribui a mensagem</text>
+              <!-- Message 5: SC -> SC (Libera Lock) -->
+              <path class="mr" d="M230,278 Q278,278 278,263 Q278,248 230,248" marker-end="url(#f3a)"/>
+              <rect class="lb3" x="234" y="276" width="86" height="13" rx="2"/>
+              <text class="tl3" x="236" y="283">Libera Lock</text>
+              <!-- Activation markers -->
+              <line stroke="#ddd" stroke-width="0.8" stroke-dasharray="3,3" x1="40" y1="100" x2="600" y2="100"/>
+              <line stroke="#ddd" stroke-width="0.8" stroke-dasharray="3,3" x1="40" y1="288" x2="600" y2="288"/>
+            </svg>
+            <figcaption>Figura 3 — Diagrama de sequência do fluxo de mensagens na implementação prática<br>Fonte: Elaborado pelo autor.</figcaption>
+        </figure>
+    </div>
+
+    <div id="sec7">
+        <h1>7. CONCLUSÃO</h1>
+        <p>A orquestração de aplicações colaborativas em tempo real exige soluções tecnológicas que permeiam quase todas as subáreas da engenharia de sistemas distribuídos e redes de computadores. A análise conceitual, balizada pelo estudo de ecossistemas como o do Google Docs, demonstra que transpor as barreiras impostas pela latência da rede e garantir a consistência das informações em acessos concorrentes requer algoritmos sofisticados, sendo a Transformação Operacional (OT) uma abordagem clássica da literatura fundamental para este fim.</p>
+        <p>Ademais, a adoção de paradigmas como a Arquitetura Orientada a Serviços (SOA), associada a bancos de dados distribuídos altamente escaláveis e protocolos de comunicação orientados a canais bidirecionais contínuos, sublinha a aplicabilidade prática das teorias de particionamento, consistência e transparência. A implementação prática do servidor de mensagens corrobora essas premissas ao revelar, mesmo em escala laboratorial, as minúcias dos desafios inerentes ao tratamento da assincronia e da sincronização de recursos via redes. Conclui-se que o provimento seguro e ininterrupto de serviços colaborativos demanda um constante equilíbrio arquitetural entre disponibilidade percebida pelo usuário e a inegociável integridade do estado global dos dados.</p>
+    </div>
+
+    <div id="sec8" class="references">
+        <h1>8. REFERÊNCIAS BIBLIOGRÁFICAS</h1>
+        
+        <p>ALGO MASTER. WebSockets | System Design. <em>AlgoMaster.io</em>, 2024. Disponível em: https://algomaster.io/learn/system-design/websockets. Acesso em: 13 maio 2026.</p>
+        
+        <p>AWS. What is SOA? - Service-Oriented Architecture Explained. <em>Amazon Web Services</em>, 2024. Disponível em: https://aws.amazon.com/what-is/service-oriented-architecture/. Acesso em: 13 maio 2026.</p>
+        
+        <p>BURROWS, M. The Chubby lock service for loosely-coupled distributed systems. <em>In</em>: Proceedings of the 7th Symposium on Operating Systems Design and Implementation (OSDI). Seattle, WA: USENIX, 2006.</p>
+        
+        <p>CHANG, F.; DEAN, J.; GHEMAWAT, S.; HSIEH, W. C.; WALLACH, D. A.; BURROWS, M.; CHANDRA, T.; FIKES, A.; GRUBER, R. E. Bigtable: A distributed storage system for structured data. <em>ACM Transactions on Computer Systems (TOCS)</em>, v. 26, n. 2, p. 4, 2008.</p>
+        
+        <p>COULOURIS, G. et al. <em>Sistemas Distribuídos: Conceitos e Projeto</em>. 5. ed. Porto Alegre: Bookman, 2013.</p>
+        
+        <p>ELLIS, C. A.; GIBBS, S. J. Concurrency control in groupware systems. <em>ACM SIGMOD Record</em>, v. 18, n. 2, p. 399-407, 1989.</p>
+        
+        <p>FRASER, N. Differential Synchronization. <em>Google Research</em>. Mountain View: ACM, 2009. Disponível em: https://research.google.com/pubs/archive/35605.pdf. Acesso em: 13 maio 2026.</p>
+        
+        <p>MAJUMDER, A. Google Docs (Real-time Collaborative Editor) V2. <em>DEV Community</em>, 2024. Disponível em: https://dev.to/arghya_majumder/google-docs-real-time-collaborative-editor-v2-3af6. Acesso em: 13 maio 2026.</p>
+        
+        <p>MATHWORKS. What Is Service-Oriented Architecture (SOA)? <em>MATLAB &amp; Simulink</em>, 2024. Disponível em: https://www.mathworks.com/discovery/soa.html. Acesso em: 13 maio 2026.</p>
+        
+        <p>SUN, C. et al. Achieving convergence, causality preservation, and intention preservation in real-time cooperative editing systems. <em>ACM Transactions on Computer-Human Interaction</em>, v. 5, n. 1, p. 63–108, 1998.</p>
+        
+        <p>SYSTEM DESIGN HANDBOOK. Google Docs System Design: A Complete Guide. <em>System Design Handbook</em>, 2024. Disponível em: https://www.systemdesignhandbook.com/guides/google-docs-system-design/. Acesso em: 13 maio 2026.</p>
+        
+        <p>TANENBAUM, A. S.; VAN STEEN, M. <em>Sistemas Distribuídos: Princípios e Paradigmas</em>. 2. ed. São Paulo: Pearson Prentice Hall, 2007.</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,468 @@
+/* ============================================================
+   ESTILO ACADÊMICO ABNT — Pronto para Exportação PDF
+   Página A4 | Times New Roman 12pt | Margens ABNT
+   Espaçamento 1,5 | Texto justificado | Sem hifenização
+   ============================================================ */
+
+/* ── Reset mínimo ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Configuração de página (Chrome / Edge "Ctrl+P → Margens: Nenhuma") ── */
+@page {
+    size: A4 portrait;
+    margin: 3cm 2cm 2cm 3cm;
+}
+
+html {
+    font-size: 12pt;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+    /* Desativa hifenização automática em todo o documento */
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+/* ============================================================
+   QUEBRAS DE PÁGINA
+   ============================================================ */
+
+/* Capa e sumário: forçam nova página logo após */
+.page-break {
+    page-break-after: always;
+    break-after: page;
+}
+
+/* Introdução começa em nova página (reforço explícito após sumário) */
+#sec1 {
+    page-break-before: always;
+    break-before: page;
+}
+
+/* Seções de maior peso iniciam em nova página */
+#sec5,
+#sec6,
+#sec7,
+#sec8 {
+    page-break-before: always;
+    break-before: page;
+}
+
+/* Evita quebra imediatamente após títulos */
+h1, h2, h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* Evita quebra no meio de figuras */
+figure {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ============================================================
+   CAPA
+   ============================================================ */
+
+.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    /* Ocupa a altura útil de uma página A4 com margens ABNT */
+    min-height: 24cm;
+    padding: 0;
+}
+
+.cover-header {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.cover-title {
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 1.2cm;
+}
+
+.cover-subtitle {
+    font-size: 12pt;
+    font-weight: normal;
+    max-width: 13cm;
+    margin: 0 auto;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.cover-footer {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* ============================================================
+   SUMÁRIO
+   ============================================================ */
+
+.toc-title {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.7cm;
+    margin-top: 0;
+}
+
+/* A lista do sumário NÃO recebe marcadores */
+.toc-list {
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list > li {
+    list-style: none !important;
+    display: flex !important;
+    align-items: baseline;
+    /* 11pt e espaçamento reduzido para caber em uma página */
+    font-size: 11pt;
+    line-height: 1.35;
+    margin-bottom: 0.22cm;
+    gap: 0.2cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.toc-list li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 11pt;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* Texto do título: ocupa espaço livre */
+.toc-list li a:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Linha pontilhada */
+.dots {
+    flex: 1 0 0.8cm;
+    border-bottom: 1px dotted #444;
+    margin: 0 0.25cm;
+    position: relative;
+    top: -3px;
+    min-width: 0.5cm;
+}
+
+/* Número de página: não encolhe */
+.toc-list li a:last-child {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   TÍTULOS ABNT
+   ============================================================ */
+
+h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+    margin-top: 0.8cm;
+    margin-bottom: 0.5cm;
+    line-height: 1.5;
+}
+
+h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: none;
+    text-align: left;
+    margin-top: 0.7cm;
+    margin-bottom: 0.4cm;
+    line-height: 1.5;
+}
+
+h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+    margin-top: 0.6cm;
+    margin-bottom: 0.3cm;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   CORPO DO TEXTO
+   ============================================================ */
+
+p {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 1.25cm;
+    margin-bottom: 0.3cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* ============================================================
+   LISTAS — Marcadores visíveis corretamente
+   ============================================================ */
+
+/* Listas gerais do conteúdo (não o sumário) */
+ul:not(.toc-list) {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+    /* padding-left cria recuo E espaço visível para o marcador */
+    padding-left: 1.5cm;
+    margin-left: 0.5cm;
+    margin-top: 0.2cm;
+    margin-bottom: 0.5cm;
+}
+
+ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+    padding-left: 1.5cm;
+    margin-left: 0.5cm;
+    margin-top: 0.2cm;
+    margin-bottom: 0.5cm;
+}
+
+/* Garante exibição correta do marcador em cada item */
+ul:not(.toc-list) > li,
+ol > li {
+    display: list-item !important;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 0.25cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* ============================================================
+   CÓDIGO INLINE
+   ============================================================ */
+
+code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10.5pt;
+    background-color: #f0f0f0;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+/* ============================================================
+   FIGURAS E DIAGRAMAS MERMAID
+   ============================================================ */
+
+figure {
+    display: block;
+    text-align: center;
+    margin: 0.9cm auto;
+}
+
+figcaption {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 10pt;
+    text-align: center;
+    margin-top: 0.4cm;
+    line-height: 1.4;
+    color: #111;
+}
+
+/* Mermaid: bloco central, não flex (flex causa problemas no print) */
+.mermaid {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 15cm;
+    overflow: visible;
+}
+
+.mermaid svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+/* Imagem gerada pela conversão SVG → <img> (fallback JS) */
+img.mermaid-img {
+    display: block;
+    margin: 0 auto;
+    max-width: 14cm;
+    width: auto;
+    height: auto;
+}
+
+/* Diagramas SVG/PNG estáticos embutidos como <img> */
+img.diagram-img {
+    display: block;
+    margin: 0 auto;
+    max-width: 14cm;
+    width: 100%;
+    height: auto;
+}
+
+/* ============================================================
+   REFERÊNCIAS BIBLIOGRÁFICAS
+   ============================================================ */
+
+.references h1 {
+    text-align: center;
+    margin-bottom: 0.8cm;
+}
+
+/* Referências: sem recuo, espaçamento simples, alinhamento à esquerda */
+.references p {
+    font-size: 12pt;
+    line-height: 1.0;
+    text-indent: 0 !important;
+    text-align: left !important;
+    margin-bottom: 0.6cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ============================================================
+   VISUALIZAÇÃO NA TELA — Simula folhas A4
+   (Estas regras NÃO se aplicam à impressão/PDF)
+   ============================================================ */
+
+@media screen {
+    body {
+        background: #b8b8b8;
+        padding: 1.5cm 0 2.5cm;
+    }
+
+    /* Cada seção principal aparece como uma folha de papel */
+    .cover,
+    #sumario,
+    #sec1,
+    #sec2,
+    #sec3,
+    #sec4,
+    #sec5,
+    #sec6,
+    #sec7,
+    #sec8 {
+        background: #fff;
+        max-width: 21cm;
+        margin: 0 auto 0.8cm;
+        /* Margens ABNT simuladas como padding da folha */
+        padding: 3cm 2cm 2cm 3cm;
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+    }
+
+    .cover {
+        min-height: 27cm;
+    }
+
+    #sumario {
+        min-height: 9cm;
+    }
+}
+
+/* ============================================================
+   IMPRESSÃO / PDF — Ctrl+P → Margens: Nenhuma
+   ============================================================ */
+
+@media print {
+    /* Garante renderização de cores e fundos */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Remove as simulações de folha da tela */
+    .cover,
+    #sumario,
+    #sec1, #sec2, #sec3, #sec4,
+    #sec5, #sec6, #sec7, #sec8 {
+        box-shadow: none !important;
+        /* Sem padding extra: @page cuida das margens */
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+    }
+
+    /* A capa deve distribuir seu conteúdo pela página inteira */
+    .cover {
+        min-height: 24cm;
+        padding: 0 !important;
+    }
+
+    h1, h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    figure {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    /* Mermaid SVGs: tamanho fixo para não transbordar na página */
+    .mermaid {
+        max-width: 14cm;
+    }
+
+    .mermaid svg {
+        max-width: 14cm !important;
+        width: auto !important;
+        height: auto !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+
+    /* Oculta qualquer controle de interface que não deve ir ao PDF */
+    #print-controls {
+        display: none !important;
+    }
+}
