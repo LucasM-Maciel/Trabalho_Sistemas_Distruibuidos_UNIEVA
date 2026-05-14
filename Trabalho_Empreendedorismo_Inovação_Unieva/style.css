@@ -334,6 +334,46 @@ table.abnt tbody tr:nth-child(even) {
 }
 
 /* ============================================================
+   PLANO ESQUEMÁTICO — FORMATO VERTICAL (ETAPAS)
+   ============================================================ */
+
+.etapa-bloco {
+    border: 1px solid #bbb;
+    border-left: 4px solid #444;
+    padding: 0.3cm 0.4cm;
+    margin-bottom: 0.35cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    background: #fafafa;
+}
+
+.etapa-bloco-last {
+    margin-bottom: 0;
+}
+
+.etapa-titulo {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11pt;
+    font-weight: bold;
+    text-indent: 0 !important;
+    margin-bottom: 0.18cm;
+    line-height: 1.4;
+}
+
+.etapa-linha {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11pt;
+    text-indent: 0 !important;
+    text-align: justify;
+    line-height: 1.4;
+    margin-bottom: 0.08cm;
+}
+
+.etapa-label {
+    font-weight: bold;
+}
+
+/* ============================================================
    REFERÊNCIAS BIBLIOGRÁFICAS
    ============================================================ */
 
