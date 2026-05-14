@@ -55,12 +55,36 @@ Relatório acadêmico em HTML com formatação ABNT, exportável como PDF, cobri
 
 ---
 
-### 3. Banco de Dados ⏳ *em breve*
+### 3. Banco de Dados ✅
 
-**Pasta:** a ser criada  
+**Pasta:** [`Relatório-Banco-De-Dados/`](./Relatório-Banco-De-Dados/)  
 **Disciplina:** Banco de Dados
 
-> Este trabalho ainda não está disponível neste repositório.
+Trabalho composto por relatório acadêmico em HTML/CSS (padrão ABNT) e protótipo funcional em Python. O tema central é a integração entre banco de dados relacional (SQL) e banco de dados não relacional (NoSQL documental), demonstrada pelo protótipo **SmartTicket DB** — sistema de gestão de chamados de suporte.
+
+**Relatório Acadêmico (`index.html`)** — cobrindo:
+- Arquitetura de SGBD ANSI/SPARC (nível interno, conceitual e externo) e independência de dados
+- Transações, COMMIT e ROLLBACK; propriedades ACID
+- Controle de concorrência (bloqueio 2PL, MVCC) e recuperação de falhas (WAL, undo/redo)
+- Segurança, integridade referencial e DCL (GRANT, REVOKE)
+- Bancos distribuídos (Teorema CAP, PACELC, replicação, fragmentação)
+- Bancos móveis (sincronização offline, Firebase/Firestore) e paradigma NoSQL documental
+- MapReduce conceitual; estudo de caso em sistemas de delivery
+
+**Protótipo SmartTicket DB (`smartticket-db/`)** — implementado em Python com:
+
+| Conceito | Implementação |
+|---|---|
+| Banco SQL transacional | SQLite com `PRAGMA foreign_keys = ON` |
+| Banco NoSQL documental | Arquivo JSON (simula MongoDB/Firestore) |
+| Transações ACID | `COMMIT` e `ROLLBACK` explícitos |
+| Integridade referencial | Chaves estrangeiras entre 4 tabelas |
+| Controle de acesso (DCL) | Matriz de permissões por perfil em `auth.py` |
+| Controle de concorrência | `threading.Lock` (simulação de bloqueio 2PL) |
+| Sincronização mobile | Eventos `atualizacao_offline` + `sincronizacao_mobile` |
+| MapReduce | Contagem de eventos por tipo sobre coleção JSON |
+
+> Para detalhes completos, estrutura de arquivos, instruções de execução e exemplo de saída, veja o [`README` da pasta](./Relatório-Banco-De-Dados/README.md).
 
 ---
 
@@ -74,16 +98,31 @@ Relatório acadêmico em HTML com formatação ABNT, exportável como PDF, cobri
 ├── 📄 .gitignore
 │
 ├── 📁 relatorio-sistemas-distribuidos/               ← Trabalho 1 — SD
-│   ├── 📄 README.md                                  ← Detalhes do trabalho
+│   ├── 📄 README.md
 │   ├── 🐍 server.py
 │   ├── 🐍 client.py
 │   ├── 🌐 index.html
 │   ├── 🎨 style.css
 │   └── 🖼️ fig1.svg / fig2.svg / fig3.svg
 │
-└── 📁 Trabalho_Empreendedorismo_Inovação_Unieva/     ← Trabalho 2 — Empreendedorismo
-    ├── 📄 README.md                                  ← Detalhes do trabalho
+├── 📁 Trabalho_Empreendedorismo_Inovação_Unieva/     ← Trabalho 2 — Empreendedorismo
+│   ├── 📄 README.md
+│   ├── 🌐 index.html
+│   └── 🎨 style.css
+│
+└── 📁 Relatório-Banco-De-Dados/                      ← Trabalho 3 — Banco de Dados
+    ├── 📄 README.md
     ├── 🌐 index.html
     ├── 🎨 style.css
-    └── 📄 copia.txt
+    └── 📁 smartticket-db/
+        ├── 🐍 main.py
+        ├── 🐍 database_sql.py
+        ├── 🐍 database_nosql.py
+        ├── 🐍 auth.py
+        ├── 🐍 concurrency_demo.py
+        ├── 🐍 seed.py
+        ├── 📄 README.md
+        ├── 📄 RELATORIO_TECNICO.md
+        ├── 📁 data/
+        └── 📁 diagrams/
 ```

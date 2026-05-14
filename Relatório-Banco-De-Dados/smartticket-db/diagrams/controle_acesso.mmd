@@ -1,0 +1,21 @@
+flowchart TD
+    U([Usuário]) --> REQ[Solicita ação\nex: resolver_chamado]
+    REQ --> P{Qual perfil?}
+
+    P -- admin --> A_OK[Todas as permissões\nGRANT ALL]
+    P -- tecnico --> T_CHECK{Ação permitida\npara técnico?}
+    P -- cliente --> C_CHECK{Ação permitida\npara cliente?}
+
+    T_CHECK -- Sim\nexemplo: atualizar_status --> T_OK[Executa operação\nCOMMIT]
+    T_CHECK -- Não\nexemplo: administrar --> DENY[Acesso Negado\nPermissionError]
+
+    C_CHECK -- Sim\nexemplo: abrir_chamado --> C_OK[Executa operação\nCOMMIT]
+    C_CHECK -- Não\nexemplo: resolver_chamado --> DENY
+
+    DENY --> LOG_NOSQL[Registra evento NoSQL\ntipo: acesso_negado\norigem: perfil, acao_tentada]
+
+    style A_OK fill:#d4edda,stroke:#28a745
+    style T_OK fill:#d4edda,stroke:#28a745
+    style C_OK fill:#d4edda,stroke:#28a745
+    style DENY fill:#f8d7da,stroke:#dc3545
+    style LOG_NOSQL fill:#fff3cd,stroke:#ffc107

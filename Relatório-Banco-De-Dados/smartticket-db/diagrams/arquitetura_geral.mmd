@@ -1,0 +1,29 @@
+flowchart TD
+    U([Usuário / Cliente]) --> APP
+
+    subgraph APP["Aplicação SmartTicket DB (Python)"]
+        direction TB
+        AUTH[auth.py\nControle de Acesso DCL]
+        SRV[Camada de Serviço\nmain.py / seed.py]
+    end
+
+    APP --> SQL
+    APP --> NOSQL
+
+    subgraph SQL["Banco SQL — SQLite"]
+        T1[(perfis)]
+        T2[(usuarios)]
+        T3[(chamados)]
+        T4[(logs_sql)]
+        T1 --> T2 --> T3 --> T4
+    end
+
+    subgraph NOSQL["Banco NoSQL Documental — JSON\n(simula MongoDB / Firebase / Firestore)"]
+        EV[("eventos_chamado\n{ id_evento, tipo, dados... }")]
+    end
+
+    MOBILE["App Mobile\n(offline)"] -- "atualizacao_offline" --> NOSQL
+    NOSQL -- "sincronizacao_mobile" --> SQL
+
+    SQL -- "COMMIT / ROLLBACK" --> LOG["Logs SQL\nauditoria relacional"]
+    NOSQL -- "eventos flexíveis" --> EVLOG["Logs NoSQL\nauditoria documental"]

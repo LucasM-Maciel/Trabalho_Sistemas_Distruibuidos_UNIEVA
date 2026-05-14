@@ -1,0 +1,21 @@
+flowchart TD
+    A([Início da Operação]) --> B[BEGIN TRANSACTION]
+    B --> C[INSERT INTO chamados\ntítulo, descrição, status, data]
+    C --> D{Erro?}
+    D -- Sim --> E[ROLLBACK\nDesfaz INSERT chamado]
+    E --> F([Nenhum dado salvo\nAtomicidade garantida])
+
+    D -- Não --> G[INSERT INTO logs_sql\nacao = abertura]
+    G --> H[Registrar evento NoSQL\ntipo = criacao_chamado]
+    H --> I{Tudo OK?}
+    I -- Não --> J[ROLLBACK\nDesfaz chamado + log]
+    J --> F
+
+    I -- Sim --> K[COMMIT\nPersiste tudo no banco]
+    K --> L([Dados confirmados\nDurabilidade garantida])
+
+    style E fill:#f8d7da,stroke:#dc3545
+    style J fill:#f8d7da,stroke:#dc3545
+    style K fill:#d4edda,stroke:#28a745
+    style F fill:#fff3cd,stroke:#ffc107
+    style L fill:#d4edda,stroke:#28a745

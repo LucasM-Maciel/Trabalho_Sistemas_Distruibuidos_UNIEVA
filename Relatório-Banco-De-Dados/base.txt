@@ -1,0 +1,152 @@
+Com a adição das novas fontes, seu arcabouço teórico está muito mais rico e perfeitamente alinhado aos requisitos do trabalho. As novas fontes cobrem desde a teoria profunda (Elmasri & Navathe, Silberschatz) até manuais técnicos e artigos científicos sobre NoSQL, Firestore, MongoDB, CAP e PACELC.
+Abaixo, apresento a base final estruturada para o seu relatório acadêmico sobre o SmartTicket DB.
+
+--------------------------------------------------------------------------------
+1 e 2. Fundamentação Teórica e Relação com o Protótipo
+Abaixo estão os tópicos exigidos, com o resumo acadêmico, fontes, citações e a aplicação prática no SmartTicket DB:
+A. Arquitetura de SGBD
+Resumo: A arquitetura clássica ANSI/SPARC de três esquemas divide o banco em nível interno (armazenamento físico), conceitual (estrutura lógica e restrições globais) e externo (visões de grupos de usuários). Seu principal objetivo é garantir a independência de dados lógica e física
+.
+Fontes: Elmasri/Navathe
+.
+Possível Citação: "O objetivo da arquitetura de três esquemas [...] é separar as aplicações do usuário do banco de dados físico", garantindo que mudanças no esquema lógico não afetem os programas de aplicação (ELMASRI; NAVATHE)
+.
+No SmartTicket DB: A aplicação (nível externo) interagirá com as tabelas de Usuários e Chamados (nível conceitual), sem precisar conhecer os detalhes de como o SQLite/PostgreSQL armazena os bytes no disco (nível interno)
+.
+B. Transações e Propriedades ACID
+Resumo: Uma transação é uma unidade lógica indivisível de trabalho
+. As propriedades ACID são: Atomicidade (tudo ou nada), Consistência (leva de um estado válido a outro), Isolamento (execuções simultâneas não interferem entre si) e Durabilidade (mudanças sobrevivem a falhas)
+.
+Fontes: Silberschatz
+; Elmasri/Navathe
+; Wikipedia
+.
+Possível Citação: Uma transação garante a atomicidade através do princípio de "tudo ou nada", em que as operações só são efetivadas na base após a conclusão bem-sucedida (commit)
+.
+No SmartTicket DB: Ao abrir um chamado, o sistema insere o registro e atualiza o status do cliente. Se a atualização falhar, a inserção é desfeita (ROLLBACK), mantendo a Atomicidade e Consistência
+.
+C. Controle de Concorrência
+Resumo: Mecanismo que garante o isolamento entre transações executadas simultaneamente, prevenindo anomalias (como leituras sujas ou atualizações perdidas) através de técnicas como o bloqueio em duas fases (2PL) e rótulos de tempo
+.
+Fontes: Elmasri/Navathe
+.
+Possível Citação: O controle de concorrência é essencial em sistemas multiusuário para evitar problemas como o da "atualização perdida", coordenando o acesso por meio de esquemas de bloqueio (ELMASRI; NAVATHE)
+.
+No SmartTicket DB: Impede que dois técnicos alterem o status do mesmo chamado no mesmo milissegundo, evitando que a alteração de um sobresscreva a do outro sem que o sistema perceba
+.
+D. Recuperação de Falhas
+Resumo: Restaura o banco de dados a um estado consistente após falhas de software ou hardware, utilizando logs do sistema e técnicas de undo (desfazer) e redo (refazer)
+.
+Fontes: Elmasri/Navathe
+.
+Possível Citação: A recuperação de falhas de transação exige que o banco de dados seja restaurado ao "estado consistente mais recente", baseando-se em logs de escrita antecipada (WAL)
+.
+No SmartTicket DB: Se o servidor SQL cair logo após o aceite de um chamado, o sistema usará o log para refazer a operação (se o commit já havia sido emitido) ou desfazê-la
+.
+E. Segurança, Integridade e DCL
+Resumo: A integridade garante dados corretos (ex.: chaves estrangeiras restritas à entidade referenciada). A segurança protege contra acessos indevidos via controle de acesso discricionário (DCL), utilizando comandos como GRANT e REVOKE para atribuir privilégios a usuários ou papéis
+.
+Fontes: Arquiteturas de Persistência
+; Elmasri/Navathe
+.
+Possível Citação: O controle de acesso discricionário é implementado na DCL através da concessão de privilégios específicos para contas de usuário manipularem relações selecionadas
+.
+No SmartTicket DB: O banco SQL aplicará Integridade Referencial (um chamado obrigatoriamente pertence a um usuário válido)
+ e a DCL concederá GRANT SELECT, UPDATE ao papel "Técnico", protegendo dados sensíveis
+.
+F. Bancos de Dados Distribuídos
+Resumo: Sistemas logicamente inter-relacionados operando sobre uma rede. Empregam o Teorema CAP (Consistência, Disponibilidade e Tolerância a Partição) e PACELC, utilizando replicação e fragmentação para escalabilidade e disponibilidade
+.
+Fontes: Arquiteturas de Persistência
+; Elmasri/Navathe
+.
+Possível Citação: O Teorema CAP determina que um sistema distribuído, diante de uma partição de rede, deve fazer um trade-off e escolher entre manter a Consistência ou a Disponibilidade dos dados (BHOSALE, 2023)
+.
+No SmartTicket DB: O histórico NoSQL pode operar em nós distribuídos sob modelo de consistência eventual para suportar um alto volume de logs
+.
+G. Bancos de Dados Móveis e Sincronização
+Resumo: Extensão dos bancos distribuídos adaptada para desconexões frequentes e bateria limitada. O cache local inteligente armazena mudanças off-line e sincroniza automaticamente quando a rede é restabelecida
+.
+Fontes: Arquiteturas de Persistência
+; Firebase Docs
+; Elmasri/Navathe
+.
+Possível Citação: Em bancos de dados móveis, a persistência off-line é ativada através de "uma fila de operações pendentes", as quais são sincronizadas resolvendo conflitos assim que a conectividade retorna
+.
+No SmartTicket DB: Técnicos de campo poderão registrar a solução de um chamado pelo app off-line; o SDK local salva os dados e sincroniza com o banco central quando houver internet
+.
+H. Bancos NoSQL e MongoDB/Firebase/Firestore
+Resumo: O NoSQL adota a escalabilidade horizontal e esquemas flexíveis (schema-less), baseando-se no princípio BASE
+. MongoDB usa BSON e fragmentação (sharding)
+, enquanto Firebase/Firestore oferecem sincronização nativa em tempo real e suporte móvel off-line
+.
+Fontes: NoSQL databases - arXiv
+; Arquiteturas de Persistência
+.
+Possível Citação: Ao contrário das restrições do modelo relacional, sistemas orientados a documentos como MongoDB suportam a evolução dinâmica dos dados, armazenando informações complexas e aninhadas de maneira atômica em BSON (KHAN et al., 2023)
+.
+No SmartTicket DB: Firestore ou MongoDB salvará o log_de_eventos de forma documental (JSON/BSON), permitindo que logs de diferentes formatos (chat, anexos, mudanças de status) coexistam sem quebrar a estrutura do banco
+.
+
+--------------------------------------------------------------------------------
+3. Sugestão de Estudo de Caso Real
+Recomendação: Sistema de Atendimento e Delivery (ex: iFood ou UberEats).
+Por que é a melhor escolha? Ele aborda todos os requisitos da ementa simultaneamente:
+Transacional (SQL): O faturamento do pedido e a transação financeira exigem propriedades ACID rigorosas para evitar cobranças indevidas
+.
+NoSQL / Distribuído: Milhões de eventos de geolocalização e logs do aplicativo dos entregadores geram Big Data que exige alta disponibilidade e fragmentação em um banco de documentos ou chave-valor
+.
+Dispositivos Móveis e Sincronização: Entregadores frequentemente passam por zonas sem sinal ("sombra"). O aplicativo precisa de sincronização de dados tolerante a falhas (via Firebase/Firestore) quando a conexão retorna
+.
+Relacionamento com o protótipo: A lógica de "aceitar uma entrega (delivery)" é idêntica à de "aceitar e resolver um chamado (SmartTicket)".
+
+--------------------------------------------------------------------------------
+4. Estrutura do Relatório Acadêmico (ABNT)
+Para estar aderente à ABNT e ao enunciado, monte o sumário assim:
+Introdução (Contextualização, objetivos e justificativa da adoção híbrida SQL/NoSQL).
+Fundamentação Teórica
+2.1. Arquitetura de SGBD e Independência de Dados.
+2.2. Transações e Propriedades ACID.
+2.3. Controle de Concorrência e Técnicas de Recuperação.
+2.4. Segurança, Integridade e DCL.
+2.5. Paradigmas Distribuídos: Teorema CAP e Replicação.
+2.6. Bancos Móveis e Paradigma NoSQL (Foco em Documentos e Sincronização).
+Estudo de Caso: Arquitetura em Aplicativos de Delivery/Atendimento
+3.1. Escalabilidade, Segurança e Sincronização Off-line no Cenário Real.
+Protótipo Prático: SmartTicket DB
+4.1. Arquitetura Geral do Sistema (Integração SQL e NoSQL).
+4.2. Modelagem Relacional (Transações COMMIT/ROLLBACK e Políticas DCL).
+4.3. Modelagem NoSQL (Firebase/MongoDB para Eventos e Logs).
+4.4. Demonstração Prática (ACID, Concorrência e Persistência Móvel).
+Resultados e Considerações Finais
+Referências
+
+--------------------------------------------------------------------------------
+5. Sugestões de Diagramas Explicativos
+O trabalho exige diagramas. Sugiro a confecção de 4 diagramas:
+Diagrama de Arquitetura Geral (3 Camadas): Mostrando o App/Cliente se conectando a uma API intermediária, que ramifica as requisições financeiras para o SGBD SQL e as requisições de log para o SGBD NoSQL
+.
+Modelo Entidade-Relacionamento (MER): Um diagrama enxuto para o banco SQL exibindo tabelas como Usuarios, Chamados, e as chaves estrangeiras que demonstram a Integridade Referencial
+.
+Estrutura de Documento JSON (NoSQL): Uma representação visual de uma árvore JSON/BSON ilustrando como o Firestore agrupa as mensagens/logs dentro de uma coleção Eventos_Chamado
+.
+Diagrama de Fluxo de Transação (ACID): Fluxograma mostrando BEGIN -> UPDATE chamado -> UPDATE usuario -> COMMIT e uma ramificação apontando para ROLLBACK em caso de falha de conexão
+.
+
+--------------------------------------------------------------------------------
+6. Possíveis Referências Bibliográficas (Padrão ABNT)
+Baseadas estritamente nas fontes fornecidas
+:
+ELMASRI, Ramez; NAVATHE, Shamkant B. Sistemas de banco de dados. 6. ed. São Paulo: Pearson, 2011. (Fundamenta arquitetura, transações, concorrência, recuperação e bancos distribuídos).
+SILBERSCHATZ, A.; KORTH, H. F.; SUDARSHAN, S. Database System Concepts. 7. ed. New York: McGraw-Hill, 2020. (Fundamenta transações ACID, Sharding e replicação em bases de dados modernas).
+MONIRUZZAMAN, A. B. M.; HOSSAIN, S. A. NoSQL Database: New Era of Databases for Big data Analytics - Classification, Characteristics and Comparison. arXiv, 2013. (Fundamenta Big Data, Teorema CAP e base documental do MongoDB/NoSQL).
+KHAN, W. et al. SQL and NoSQL Database Software Architecture Performance Analysis and Assessments: A Systematic Literature Review. Big Data and Cognitive Computing, v. 7, n. 2, 2023. (Fundamenta a integração e performance entre sistemas SQL e NoSQL e o teorema BASE).
+MONGODB INC. MongoDB Architecture Guide. MongoDB Documentation, 2026. (Fundamenta o modelo documental, BSON e escalabilidade em NoSQL).
+GOOGLE. Cloud Firestore: Store and sync app data at global scale. Firebase Documentation, 2026. (Fundamenta persistência off-line e sincronização em tempo real para bancos móveis).
+
+--------------------------------------------------------------------------------
+7. Lacunas e Requisitos não cobertos pelas Fontes
+Após a reavaliação de todas as fontes recém-adicionadas frente ao enunciado da Unievangélica ("doc011335...pdf"):
+Apresentação de Map-Reduce (Item 4 do enunciado): Embora haja a explicação fundamental teórica de bancos NoSQL, nas fontes disponíveis a menção técnica a Map-Reduce é apenas periférica (mencionada como o algoritmo usado no Hadoop para computação paralela de Big Data, em fontes como Khan et al. e as revisões sistemáticas, ex: fonte
+). Para o relatório físico, será prudente fazer uma pesquisa complementar externa rápida para explicar detalhadamente a mecânica técnica das funções "Map" e "Reduce" em processamento paralelo, caso seu professor exija demonstração de código desse paradigma de forma aprofundada.
+Todo o restante — propriedades ACID, Concorrência, Segurança, DCL, Bancos Móveis (Sincronização offline do Firebase), MongoDB, Sistemas distribuídos modernos (Teorema CAP/PACELC) — está 100% suportado e altamente detalhado nas fontes literárias agora disponíveis no seu notebook!

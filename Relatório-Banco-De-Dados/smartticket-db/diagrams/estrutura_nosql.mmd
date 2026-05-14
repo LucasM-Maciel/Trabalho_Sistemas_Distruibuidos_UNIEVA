@@ -1,0 +1,16 @@
+flowchart TD
+    COL[("Coleção: eventos_chamado\nJSON — simula MongoDB / Firestore")]
+
+    COL --> D1["Documento: criacao_chamado\n─────────────────\nid_evento: uuid\nid_chamado: 1\ntipo: criacao_chamado\norigem: sistema\ntimestamp: ...\ndados: { titulo, status }"]
+
+    COL --> D2["Documento: mudanca_status\n─────────────────\nid_evento: uuid\nid_chamado: 1\ntipo: mudanca_status\norigem: Técnico João\ntimestamp: ...\ndados: { status_anterior, novo_status }"]
+
+    COL --> D3["Documento: acesso_negado\n─────────────────\nid_evento: uuid\nid_chamado: 1\ntipo: acesso_negado\norigem: cliente\ntimestamp: ...\ndados: { usuario, acao_tentada }"]
+
+    COL --> D4["Documento: atualizacao_offline\n─────────────────\nid_evento: uuid\nid_chamado: 1\ntipo: atualizacao_offline\norigem: app_mobile_maria\ntimestamp: ...\ndados: { modo: offline, pendente: true }"]
+
+    COL --> D5["Documento: sincronizacao_mobile\n─────────────────\nid_evento: uuid\nid_chamado: 1\ntipo: sincronizacao_mobile\norigem: servidor_central\ntimestamp: ...\ndados: { status_sync, conflitos: 0 }"]
+
+    style COL fill:#fff3cd,stroke:#ffc107
+    style D4 fill:#d1ecf1,stroke:#17a2b8
+    style D5 fill:#d4edda,stroke:#28a745

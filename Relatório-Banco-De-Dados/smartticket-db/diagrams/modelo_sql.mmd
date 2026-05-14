@@ -1,0 +1,34 @@
+erDiagram
+    perfis {
+        INTEGER id_perfil PK
+        TEXT    nome
+    }
+
+    usuarios {
+        INTEGER id_usuario PK
+        TEXT    nome
+        TEXT    email
+        INTEGER id_perfil FK
+    }
+
+    chamados {
+        INTEGER id_chamado   PK
+        INTEGER id_usuario   FK
+        TEXT    titulo
+        TEXT    descricao
+        TEXT    status
+        TEXT    criado_em
+        TEXT    atualizado_em
+    }
+
+    logs_sql {
+        INTEGER id_log      PK
+        INTEGER id_chamado  FK
+        TEXT    acao
+        TEXT    detalhes
+        TEXT    criado_em
+    }
+
+    perfis    ||--o{ usuarios  : "1 perfil → N usuários"
+    usuarios  ||--o{ chamados  : "1 usuário → N chamados"
+    chamados  ||--o{ logs_sql  : "1 chamado → N logs"

@@ -1,0 +1,418 @@
+/* ============================================================
+   ESTILO ACADÊMICO ABNT — Pronto para Exportação PDF
+   Página A4 | Times New Roman 12pt | Margens ABNT
+   Espaçamento 1,5 | Texto justificado | Sem hifenização
+   ============================================================ */
+
+/* ── Reset mínimo ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Configuração de página (Chrome / Edge "Ctrl+P → Margens: Nenhuma") ── */
+@page {
+    size: A4 portrait;
+    margin: 3cm 2cm 2cm 3cm;
+}
+
+html {
+    font-size: 12pt;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+/* ============================================================
+   QUEBRAS DE PÁGINA
+   ============================================================ */
+
+.page-break {
+    page-break-after: always;
+    break-after: page;
+}
+
+#sec1 {
+    page-break-before: always;
+    break-before: page;
+}
+
+#sec5,
+#sec6,
+#sec7 {
+    page-break-before: always;
+    break-before: page;
+}
+
+h1, h2, h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+figure {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ============================================================
+   CAPA
+   ============================================================ */
+
+.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    min-height: 24cm;
+    padding: 0;
+}
+
+.cover-header {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.cover-title {
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 1.2cm;
+}
+
+.cover-subtitle {
+    font-size: 12pt;
+    font-weight: normal;
+    max-width: 13cm;
+    margin: 0 auto;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.cover-footer {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* ============================================================
+   SUMÁRIO
+   ============================================================ */
+
+.toc-title {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.7cm;
+    margin-top: 0;
+}
+
+.toc-list {
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list > li {
+    list-style: none !important;
+    display: flex !important;
+    align-items: baseline;
+    font-size: 11pt;
+    line-height: 1.35;
+    margin-bottom: 0.22cm;
+    gap: 0.2cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.toc-list li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 11pt;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.toc-list li a:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.dots {
+    flex: 1 0 0.8cm;
+    border-bottom: 1px dotted #444;
+    margin: 0 0.25cm;
+    position: relative;
+    top: -3px;
+    min-width: 0.5cm;
+}
+
+.toc-list li a:last-child {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   TÍTULOS ABNT
+   ============================================================ */
+
+h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+    margin-top: 0.8cm;
+    margin-bottom: 0.5cm;
+    line-height: 1.5;
+}
+
+h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: none;
+    text-align: left;
+    margin-top: 0.7cm;
+    margin-bottom: 0.4cm;
+    line-height: 1.5;
+}
+
+h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+    margin-top: 0.6cm;
+    margin-bottom: 0.3cm;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   CORPO DO TEXTO
+   ============================================================ */
+
+p {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 1.25cm;
+    margin-bottom: 0.3cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* ============================================================
+   LISTAS
+   ============================================================ */
+
+ul:not(.toc-list) {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+    padding-left: 1.5cm;
+    margin-left: 0.5cm;
+    margin-top: 0.2cm;
+    margin-bottom: 0.5cm;
+}
+
+ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+    padding-left: 1.5cm;
+    margin-left: 0.5cm;
+    margin-top: 0.2cm;
+    margin-bottom: 0.5cm;
+}
+
+ul:not(.toc-list) > li,
+ol > li {
+    display: list-item !important;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 0.25cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* ============================================================
+   CÓDIGO INLINE
+   ============================================================ */
+
+code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10.5pt;
+    background-color: #f0f0f0;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+/* ============================================================
+   FIGURAS E DIAGRAMAS MERMAID
+   ============================================================ */
+
+figure {
+    display: block;
+    text-align: center;
+    margin: 0.9cm auto;
+}
+
+figcaption {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 10pt;
+    text-align: center;
+    margin-top: 0.4cm;
+    line-height: 1.4;
+    color: #111;
+}
+
+.mermaid {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 15cm;
+    overflow: visible;
+}
+
+.mermaid svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+/* ============================================================
+   REFERÊNCIAS BIBLIOGRÁFICAS
+   ============================================================ */
+
+.references h1 {
+    text-align: center;
+    margin-bottom: 0.8cm;
+}
+
+.references p {
+    font-size: 12pt;
+    line-height: 1.0;
+    text-indent: 0 !important;
+    text-align: left !important;
+    margin-bottom: 0.6cm;
+    hyphens: none;
+    -webkit-hyphens: none;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ============================================================
+   VISUALIZAÇÃO NA TELA — Simula folhas A4
+   ============================================================ */
+
+@media screen {
+    body {
+        background: #b8b8b8;
+        padding: 1.5cm 0 2.5cm;
+    }
+
+    .cover,
+    #sumario,
+    #sec1,
+    #sec2,
+    #sec3,
+    #sec4,
+    #sec5,
+    #sec6,
+    #sec7 {
+        background: #fff;
+        max-width: 21cm;
+        margin: 0 auto 0.8cm;
+        padding: 3cm 2cm 2cm 3cm;
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+    }
+
+    .cover {
+        min-height: 27cm;
+    }
+
+    #sumario {
+        min-height: 9cm;
+    }
+}
+
+/* ============================================================
+   IMPRESSÃO / PDF
+   ============================================================ */
+
+@media print {
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .cover,
+    #sumario,
+    #sec1, #sec2, #sec3, #sec4,
+    #sec5, #sec6, #sec7 {
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+    }
+
+    .cover {
+        min-height: 24cm;
+        padding: 0 !important;
+    }
+
+    h1, h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    figure {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .mermaid {
+        max-width: 14cm;
+    }
+
+    .mermaid svg {
+        max-width: 14cm !important;
+        width: auto !important;
+        height: auto !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+}

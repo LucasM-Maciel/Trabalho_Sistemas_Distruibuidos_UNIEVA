@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banco de Dados — SmartTicket DB</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Mermaid para renderizar diagramas inline -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     CAPA
+══════════════════════════════════════════════ -->
+<div class="cover page-break">
+  <div class="cover-header">
+    <p>UNIVERSIDADE EVANGÉLICA DE GOIÁS — UNIEVANGÉLICA</p>
+    <p>LUCAS MARQUES MACIEL</p>
+  </div>
+
+  <div>
+    <p class="cover-title">BANCO DE DADOS</p>
+    <p class="cover-subtitle">
+      Fundamentos de SGBD, Propriedades ACID, Controle de Concorrência,
+      Segurança e Integridade, Bancos Distribuídos e Móveis, NoSQL e MapReduce:
+      Teoria e Aplicação Prática com o Protótipo SmartTicket DB
+    </p>
+  </div>
+
+  <div class="cover-footer">
+    <p>ANÁPOLIS</p>
+    <p>2026</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SUMÁRIO
+══════════════════════════════════════════════ -->
+<div id="sumario" class="page-break">
+  <p class="toc-title">SUMÁRIO</p>
+  <ul class="toc-list">
+    <li>
+      <a href="#sec1">1. INTRODUÇÃO</a>
+      <span class="dots"></span>
+      <a href="#sec1">3</a>
+    </li>
+    <li>
+      <a href="#sec2">2. FUNDAMENTAÇÃO TEÓRICA</a>
+      <span class="dots"></span>
+      <a href="#sec2">4</a>
+    </li>
+    <li>
+      <a href="#sec2">2.1 Arquitetura de SGBD e Independência de Dados</a>
+      <span class="dots"></span>
+      <a href="#sec2">4</a>
+    </li>
+    <li>
+      <a href="#sec2">2.2 Transações e Propriedades ACID</a>
+      <span class="dots"></span>
+      <a href="#sec2">5</a>
+    </li>
+    <li>
+      <a href="#sec2">2.3 Controle de Concorrência e Recuperação de Falhas</a>
+      <span class="dots"></span>
+      <a href="#sec2">6</a>
+    </li>
+    <li>
+      <a href="#sec2">2.4 Segurança, Integridade e DCL</a>
+      <span class="dots"></span>
+      <a href="#sec2">7</a>
+    </li>
+    <li>
+      <a href="#sec2">2.5 Paradigmas Distribuídos: Teorema CAP e Replicação</a>
+      <span class="dots"></span>
+      <a href="#sec2">8</a>
+    </li>
+    <li>
+      <a href="#sec2">2.6 Bancos Móveis e Paradigma NoSQL</a>
+      <span class="dots"></span>
+      <a href="#sec2">9</a>
+    </li>
+    <li>
+      <a href="#sec3">3. ESTUDO DE CASO: SISTEMAS DE DELIVERY E ATENDIMENTO</a>
+      <span class="dots"></span>
+      <a href="#sec3">11</a>
+    </li>
+    <li>
+      <a href="#sec4">4. PROTÓTIPO: SMARTTICKET DB</a>
+      <span class="dots"></span>
+      <a href="#sec4">12</a>
+    </li>
+    <li>
+      <a href="#sec4">4.1 Arquitetura Geral do Sistema</a>
+      <span class="dots"></span>
+      <a href="#sec4">12</a>
+    </li>
+    <li>
+      <a href="#sec4">4.2 Modelagem Relacional e Transações</a>
+      <span class="dots"></span>
+      <a href="#sec4">13</a>
+    </li>
+    <li>
+      <a href="#sec4">4.3 Modelagem NoSQL e Eventos Documentais</a>
+      <span class="dots"></span>
+      <a href="#sec4">14</a>
+    </li>
+    <li>
+      <a href="#sec4">4.4 Demonstração Prática: ACID, Concorrência e Persistência Móvel</a>
+      <span class="dots"></span>
+      <a href="#sec4">15</a>
+    </li>
+    <li>
+      <a href="#sec5">5. RESULTADOS E CONSIDERAÇÕES FINAIS</a>
+      <span class="dots"></span>
+      <a href="#sec5">17</a>
+    </li>
+    <li>
+      <a href="#sec6">REFERÊNCIAS</a>
+      <span class="dots"></span>
+      <a href="#sec6">18</a>
+    </li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     1. INTRODUÇÃO
+══════════════════════════════════════════════ -->
+<div id="sec1">
+  <h1>1. Introdução</h1>
+
+  <p>
+    Os sistemas de gerenciamento de banco de dados (SGBDs) ocupam posição central na infraestrutura tecnológica contemporânea. Desde os sistemas transacionais que processam operações financeiras até as plataformas de atendimento ao cliente, passando pelos aplicativos móveis que operam em condições de conectividade intermitente, a gestão eficiente e confiável dos dados constitui requisito indispensável para a continuidade dos negócios e a integridade das informações.
+  </p>
+  <p>
+    O presente trabalho tem por objetivo explorar os fundamentos teóricos e práticos dos bancos de dados relacionais e não relacionais, com ênfase nos conceitos de arquitetura de SGBD, propriedades ACID, controle de concorrência, recuperação de falhas, segurança e integridade, bancos de dados distribuídos, bancos móveis, paradigma NoSQL e MapReduce. A abordagem adotada integra a revisão da literatura especializada com a implementação de um protótipo funcional denominado SmartTicket DB.
+  </p>
+  <p>
+    O SmartTicket DB é um sistema acadêmico de gestão de chamados de suporte desenvolvido em Python, utilizando SQLite como banco de dados relacional e arquivos JSON como simulação de um banco de dados NoSQL documental. A escolha por essas tecnologias foi deliberada: o SQLite é amplamente adotado em protótipos acadêmicos e em ambientes de desenvolvimento por dispensar configuração de servidor, enquanto os arquivos JSON reproduzem fielmente a estrutura de documentos armazenados em sistemas como MongoDB, Firebase ou Firestore. O protótipo não tem a pretensão de ser um produto final, mas de demonstrar, de forma clara e executável, como os conceitos teóricos se materializam em código.
+  </p>
+  <p>
+    A justificativa para a adoção de uma arquitetura híbrida SQL/NoSQL reside na complementaridade entre os dois paradigmas: os dados transacionais, que exigem consistência rígida e integridade referencial, são melhor servidos por um modelo relacional com propriedades ACID; os dados de log, eventos e histórico de alterações, que possuem estrutura variável e alto volume de escrita, são mais eficientemente armazenados em um modelo documental flexível. Esta combinação é observada em sistemas reais de grande escala, como os aplicativos de delivery e atendimento analisados no Capítulo 3.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     2. FUNDAMENTAÇÃO TEÓRICA
+══════════════════════════════════════════════ -->
+<div id="sec2">
+  <h1>2. Fundamentação Teórica</h1>
+
+  <h2>2.1 Arquitetura de SGBD e Independência de Dados</h2>
+
+  <p>
+    A arquitetura de três esquemas proposta pelo comitê ANSI/SPARC divide a estrutura de um sistema de banco de dados em três níveis: interno, conceitual e externo. O nível interno, também denominado nível físico, descreve como os dados são efetivamente armazenados nos dispositivos de hardware, incluindo estruturas de arquivo, índices e alocação de blocos de disco. O nível conceitual define a estrutura lógica global do banco, com as entidades, atributos, relacionamentos e restrições de integridade. O nível externo, por sua vez, apresenta visões personalizadas dos dados para diferentes grupos de usuários ou aplicações, exibindo apenas as informações relevantes para cada contexto (ELMASRI; NAVATHE, 2011).
+  </p>
+  <p>
+    O objetivo central desta arquitetura é, conforme sintetizado por Elmasri e Navathe (2011), "separar as aplicações do usuário do banco de dados físico", garantindo que modificações no nível de armazenamento físico não exijam alterações nos programas de aplicação (independência de dados física) e que mudanças no esquema conceitual global não afetem os esquemas externos (independência de dados lógica).
+  </p>
+  <p>
+    No contexto do protótipo SmartTicket DB, esta arquitetura se manifesta da seguinte forma: a aplicação Python (nível externo) interage com as tabelas <code>usuarios</code>, <code>chamados</code> e <code>logs_sql</code> (nível conceitual) por meio de funções abstratas, sem precisar conhecer os detalhes de como o SQLite organiza os dados no arquivo <code>.db</code> no disco (nível interno). A substituição do SQLite por PostgreSQL, por exemplo, exigiria apenas a alteração da camada de conexão, sem impacto na lógica de negócio.
+  </p>
+
+  <h2>2.2 Transações e Propriedades ACID</h2>
+
+  <p>
+    Uma transação é definida como uma unidade lógica indivisível de trabalho, composta por uma ou mais operações de acesso ao banco de dados — leituras e escritas. Uma transação deve ser executada em sua totalidade ou, em caso de falha, desfeita completamente, de modo que o banco retorne ao estado anterior ao início da operação (ELMASRI; NAVATHE, 2011).
+  </p>
+  <p>
+    As propriedades que garantem a confiabilidade das transações são agrupadas sob o acrônimo ACID, conforme definido por Silberschatz, Korth e Sudarshan (2020):
+  </p>
+  <ul>
+    <li><strong>Atomicidade:</strong> todas as operações de uma transação são executadas ou nenhuma é. O princípio "tudo ou nada" garante que não existam estados parcialmente modificados no banco. Em caso de falha, o mecanismo de <em>rollback</em> desfaz todas as alterações realizadas até aquele ponto.</li>
+    <li><strong>Consistência:</strong> uma transação leva o banco de dados de um estado válido e consistente a outro estado igualmente válido. As restrições de integridade (chaves primárias, estrangeiras, domínios) devem ser satisfeitas ao final de cada transação.</li>
+    <li><strong>Isolamento:</strong> transações executadas simultaneamente não interferem umas nas outras. O resultado de transações concorrentes deve ser equivalente ao resultado de sua execução serial. O nível de isolamento pode ser configurado em SGBDs modernos para equilibrar desempenho e consistência.</li>
+    <li><strong>Durabilidade:</strong> após a confirmação de uma transação (COMMIT), as mudanças realizadas persistem definitivamente no banco de dados, mesmo diante de falhas de hardware ou software subsequentes.</li>
+  </ul>
+  <p>
+    Os comandos que delimitam uma transação são: <code>BEGIN</code> (ou implícito no SQLite), que marca o início; <code>COMMIT</code>, que confirma todas as operações; e <code>ROLLBACK</code>, que as desfaz. No protótipo, a abertura de um chamado utiliza uma transação que insere registros em duas tabelas simultaneamente — se qualquer etapa falha, o ROLLBACK garante que nenhum dado parcial persiste.
+  </p>
+
+  <h2>2.3 Controle de Concorrência e Recuperação de Falhas</h2>
+
+  <p>
+    Em sistemas multiusuário, múltiplas transações podem ser executadas simultaneamente, compartilhando o acesso aos mesmos recursos. Sem mecanismos de controle, problemas como leitura suja (<em>dirty read</em>), leitura não repetível (<em>non-repeatable read</em>) e atualização perdida (<em>lost update</em>) podem comprometer a integridade dos dados (ELMASRI; NAVATHE, 2011).
+  </p>
+  <p>
+    O controle de concorrência tem por objetivo garantir a propriedade de Isolamento das transações. O protocolo mais amplamente implementado nos SGBDs tradicionais é o bloqueio em duas fases (2PL — <em>Two-Phase Locking</em>), no qual uma transação adquire todos os bloqueios necessários antes de liberar qualquer um deles. SGBDs modernos como PostgreSQL utilizam o controle de concorrência por versão múltipla (MVCC — <em>Multi-Version Concurrency Control</em>), que permite leituras não bloqueantes ao manter versões históricas dos dados.
+  </p>
+  <p>
+    A recuperação de falhas é o mecanismo pelo qual o banco de dados restaura um estado consistente após falhas de transação, de sistema ou de mídia. A técnica mais utilizada é o arquivo de log de escrita antecipada (WAL — <em>Write-Ahead Log</em>), no qual todas as modificações são registradas em um log antes de serem aplicadas ao banco. Em caso de falha, as técnicas de <em>undo</em> (desfazer operações não confirmadas) e <em>redo</em> (refazer operações confirmadas) restauram o estado correto do banco (ELMASRI; NAVATHE, 2011).
+  </p>
+  <p>
+    No protótipo SmartTicket DB, o controle de concorrência é simulado por meio de <code>threading.Lock</code>, que garante exclusão mútua na seção crítica de atualização de chamados. A recuperação de falhas é representada pelo mecanismo de ROLLBACK automático em resposta a exceções.
+  </p>
+
+  <h2>2.4 Segurança, Integridade e DCL</h2>
+
+  <p>
+    A segurança em banco de dados abrange os mecanismos de controle de acesso que protegem os dados contra acessos não autorizados, modificações indevidas e divulgações inadequadas. O modelo de controle de acesso discricionário (DAC — <em>Discretionary Access Control</em>), implementado na DCL (<em>Data Control Language</em>), concede aos proprietários dos objetos a capacidade de determinar quem pode acessá-los e com que permissões.
+  </p>
+  <p>
+    Os principais comandos da DCL são <code>GRANT</code>, que concede privilégios específicos a usuários ou papéis (<em>roles</em>), e <code>REVOKE</code>, que os revoga. Em SGBDs como PostgreSQL e MySQL, é possível criar papéis com conjuntos de permissões predefinidos e atribuí-los a múltiplos usuários, simplificando a administração de segurança (ELMASRI; NAVATHE, 2011).
+  </p>
+  <p>
+    A integridade dos dados é garantida por restrições definidas no nível conceitual do banco: chaves primárias asseguram unicidade, chaves estrangeiras garantem a integridade referencial entre tabelas, restrições de domínio limitam os valores válidos para atributos, e restrições de entidade impedem valores nulos em atributos identificadores. O SQLite implementa estas restrições, mas requer a ativação explícita da verificação de chaves estrangeiras por meio do comando <code>PRAGMA foreign_keys = ON</code>.
+  </p>
+
+  <h2>2.5 Paradigmas Distribuídos: Teorema CAP e Replicação</h2>
+
+  <p>
+    Um banco de dados distribuído é um conjunto de bancos de dados logicamente inter-relacionados, distribuídos por uma rede de computadores, que o usuário percebe como um único sistema de banco de dados (ELMASRI; NAVATHE, 2011). A distribuição dos dados é realizada por meio de replicação (cópias dos dados em múltiplos nós) e fragmentação (divisão dos dados em partições distribuídas entre nós).
+  </p>
+  <p>
+    O Teorema CAP, enunciado por Brewer e formalizado por Gilbert e Lynch, estabelece que um sistema distribuído não pode garantir simultaneamente mais de duas das três seguintes propriedades: Consistência (C — todos os nós veem os mesmos dados no mesmo instante), Disponibilidade (A — toda requisição recebe uma resposta) e Tolerância a Partição (P — o sistema continua operando mesmo com falhas de comunicação entre nós) (MONIRUZZAMAN; HOSSAIN, 2013).
+  </p>
+  <p>
+    Uma extensão do Teorema CAP, denominada PACELC, introduzida por Abadi, estende a análise para situações sem partição de rede: mesmo em condições normais, há um <em>trade-off</em> entre latência (L) e consistência (C). Sistemas como o Cassandra e o DynamoDB favorecem disponibilidade e baixa latência, adotando um modelo de consistência eventual, enquanto sistemas como o Spanner do Google favorecem a consistência forte, aceitando maior latência.
+  </p>
+  <p>
+    No contexto do protótipo, a camada NoSQL de eventos documentais poderia, em ambiente de produção, operar em um cluster distribuído com replicação entre nós, adotando consistência eventual para suportar alto volume de eventos de log com baixa latência de escrita.
+  </p>
+
+  <h2>2.6 Bancos Móveis e Paradigma NoSQL</h2>
+
+  <p>
+    Os bancos de dados para aplicações móveis constituem uma extensão dos sistemas distribuídos adaptada às características peculiares dos dispositivos móveis: conectividade intermitente, energia limitada e requisitos de resposta em tempo real. O principal desafio técnico é a sincronização de dados entre o armazenamento local do dispositivo e o servidor central, com resolução de conflitos quando operações realizadas offline são submetidas ao servidor (GOOGLE, 2026).
+  </p>
+  <p>
+    O Firebase Firestore, da Google, implementa este modelo por meio de uma fila de operações pendentes armazenadas localmente. Quando a conectividade é restabelecida, o SDK sincroniza automaticamente as operações, resolvendo conflitos pela estratégia de <em>last-write-wins</em> ou por lógica customizada da aplicação. Este comportamento é simulado no SmartTicket DB pelos eventos NoSQL <code>atualizacao_offline</code> e <code>sincronizacao_mobile</code>.
+  </p>
+  <p>
+    Os bancos de dados NoSQL surgiram como resposta às limitações do modelo relacional frente ao crescimento exponencial dos dados na era da internet. Ao contrário dos SGBDs relacionais, que impõem um esquema rígido e garantem propriedades ACID completas, os sistemas NoSQL adotam o princípio BASE — <em>Basically Available</em>, <em>Soft state</em>, <em>Eventual consistency</em> — priorizando disponibilidade e escalabilidade horizontal sobre a consistência imediata (MONIRUZZAMAN; HOSSAIN, 2013).
+  </p>
+  <p>
+    Os quatro principais modelos NoSQL são: documental (MongoDB, Firestore), chave-valor (Redis, DynamoDB), orientado a colunas (Cassandra, HBase) e orientado a grafos (Neo4j). O modelo documental, adotado como referência neste trabalho, armazena os dados como documentos JSON ou BSON, com esquema flexível que permite a evolução da estrutura dos dados sem migrações de banco de dados (KHAN et al., 2023). MongoDB utiliza fragmentação (<em>sharding</em>) para distribuição horizontal dos dados, enquanto Firebase/Firestore oferecem sincronização em tempo real e suporte nativo a operações offline.
+  </p>
+  <p>
+    O MapReduce é um modelo de programação para processamento de grandes volumes de dados em clusters distribuídos, introduzido pelo Google. O paradigma divide o processamento em duas fases: a fase <em>Map</em>, na qual cada nó do cluster processa de forma independente uma partição dos dados, emitindo pares chave-valor intermediários; e a fase <em>Reduce</em>, na qual os pares intermediários com a mesma chave são agrupados e processados para produzir o resultado final. Embora frameworks como Hadoop e Spark implementem MapReduce em escala de <em>petabytes</em>, o conceito pode ser demonstrado localmente por operações simples de agrupamento e contagem sobre coleções de documentos.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     3. ESTUDO DE CASO
+══════════════════════════════════════════════ -->
+<div id="sec3">
+  <h1>3. Estudo de Caso: Arquitetura em Sistemas de Delivery e Atendimento</h1>
+
+  <p>
+    Os sistemas de delivery por aplicativo, como iFood e UberEats, constituem exemplos paradigmáticos da aplicação simultânea de todos os conceitos abordados neste trabalho. Sua arquitetura de dados é, por natureza, híbrida: combina um banco relacional transacional com bancos documentais de alta disponibilidade, além de sincronização mobile robusta para os dispositivos dos entregadores.
+  </p>
+
+  <h2>3.1 Escalabilidade, Segurança e Sincronização Off-line no Cenário Real</h2>
+
+  <p>
+    <strong>Camada SQL transacional.</strong> O processamento de pedidos e pagamentos exige propriedades ACID rigorosas. Uma transação de pedido insere o registro do pedido, desconta o saldo do usuário, registra a cobrança no gateway de pagamento e vincula um entregador disponível — tudo atomicamente. Uma falha em qualquer etapa deve acionar ROLLBACK para evitar cobranças sem entrega ou pedidos sem pagamento. O controle de acesso via DCL restringe quais sistemas podem modificar tabelas financeiras, utilizando papéis (<em>roles</em>) com permissões de <code>INSERT</code> e <code>UPDATE</code> apenas para os serviços autorizados.
+  </p>
+  <p>
+    <strong>Camada NoSQL documental.</strong> Milhões de eventos são gerados continuamente: atualizações de geolocalização dos entregadores a cada poucos segundos, mensagens entre usuários e estabelecimentos, logs de falhas e métricas de desempenho. O volume e a heterogeneidade desses dados inviabilizam o modelo relacional rígido. Bancos como Cassandra (otimizado para escritas de alta frequência) e Firestore (otimizado para sincronização em tempo real) são empregados para armazenar esses eventos documentais com escalabilidade horizontal (KHAN et al., 2023).
+  </p>
+  <p>
+    <strong>Concorrência.</strong> O problema de dois entregadores aceitando o mesmo pedido simultaneamente é a replicação exata do cenário de dois técnicos atualizando o mesmo chamado no SmartTicket DB. O SGBD utiliza bloqueios otimistas ou pessimistas para serializar o acesso e garantir que apenas um entregador seja vinculado a cada pedido.
+  </p>
+  <p>
+    <strong>Sincronização mobile.</strong> Entregadores frequentemente passam por áreas com sinal fraco ou sem cobertura. O aplicativo utiliza a persistência offline do Firebase/Firestore para armazenar atualizações de status localmente e sincronizá-las com o servidor central quando a conectividade é restabelecida. O protocolo de resolução de conflitos determina qual versão dos dados prevalece em caso de divergência entre o estado local e o estado do servidor (GOOGLE, 2026).
+  </p>
+  <p>
+    <strong>Relação com o protótipo.</strong> A lógica de "aceitar e resolver um chamado" no SmartTicket DB é estruturalmente idêntica à de "aceitar e concluir uma entrega": ambas envolvem uma transação SQL que atualiza o estado do objeto principal, registros de log documentais com eventos flexíveis, controle de concorrência para acesso simultâneo e sincronização de atualizações realizadas offline.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     4. PROTÓTIPO
+══════════════════════════════════════════════ -->
+<div id="sec4">
+  <h1>4. Protótipo Prático: SmartTicket DB</h1>
+
+  <p>
+    O SmartTicket DB é um protótipo acadêmico de sistema de gestão de chamados, implementado em Python com SQLite (camada SQL) e arquivo JSON local (camada NoSQL documental). Todas as bibliotecas utilizadas são nativas do Python 3, dispensando instalação de dependências externas. O protótipo é executado inteiramente via terminal com o comando <code>python main.py</code>.
+  </p>
+
+  <h2>4.1 Arquitetura Geral do Sistema</h2>
+
+  <p>
+    A arquitetura do SmartTicket DB é composta por duas camadas de persistência independentes, coordenadas por uma camada de serviço em Python. A Figura 1 ilustra os componentes do sistema e seus relacionamentos.
+  </p>
+
+  <figure>
+    <div class="mermaid">
+flowchart TD
+    U([Usuário]) --> APP
+
+    subgraph APP["Aplicação SmartTicket DB"]
+        AUTH[auth.py — Controle de Acesso]
+        SRV[main.py — Orquestração]
+    end
+
+    APP --> SQL
+    APP --> NOSQL
+
+    subgraph SQL["Banco SQL — SQLite"]
+        T1[(perfis)] --> T2[(usuarios)]
+        T2 --> T3[(chamados)]
+        T3 --> T4[(logs_sql)]
+    end
+
+    subgraph NOSQL["Banco NoSQL — JSON"]
+        EV[("eventos_chamado")]
+    end
+
+    MOBILE["App Mobile (offline)"] -- atualizacao_offline --> NOSQL
+    NOSQL -- sincronizacao_mobile --> SQL
+    </div>
+    <figcaption>Figura 1 — Arquitetura geral do SmartTicket DB. Fonte: elaborado pelo autor.</figcaption>
+  </figure>
+
+  <p>
+    A camada SQL é responsável pelos dados estruturados e transacionais: perfis, usuários, chamados e logs relacionais. A camada NoSQL armazena eventos documentais de schema flexível associados a cada chamado. A camada de serviço orquestra as operações entre as duas camadas, aplicando o controle de acesso definido em <code>auth.py</code> antes de qualquer operação de escrita.
+  </p>
+
+  <h2>4.2 Modelagem Relacional e Transações</h2>
+
+  <p>
+    O modelo relacional é composto por quatro tabelas com relacionamentos definidos por chaves estrangeiras. A instrução <code>PRAGMA foreign_keys = ON</code> é executada em toda conexão SQLite para ativar a verificação de integridade referencial. A Figura 2 apresenta o Modelo Entidade-Relacionamento do banco SQL.
+  </p>
+
+  <figure>
+    <div class="mermaid">
+erDiagram
+    perfis {
+        INTEGER id_perfil PK
+        TEXT nome
+    }
+    usuarios {
+        INTEGER id_usuario PK
+        TEXT nome
+        TEXT email
+        INTEGER id_perfil FK
+    }
+    chamados {
+        INTEGER id_chamado PK
+        INTEGER id_usuario FK
+        TEXT titulo
+        TEXT status
+        TEXT criado_em
+    }
+    logs_sql {
+        INTEGER id_log PK
+        INTEGER id_chamado FK
+        TEXT acao
+        TEXT detalhes
+        TEXT criado_em
+    }
+    perfis ||--o{ usuarios : "1 para N"
+    usuarios ||--o{ chamados : "1 para N"
+    chamados ||--o{ logs_sql : "1 para N"
+    </div>
+    <figcaption>Figura 2 — Modelo Entidade-Relacionamento do banco SQL. Fonte: elaborado pelo autor.</figcaption>
+  </figure>
+
+  <p>
+    A abertura de um chamado é implementada como uma transação atômica: o sistema insere o registro na tabela <code>chamados</code> e, na mesma transação, insere o log correspondente em <code>logs_sql</code>. A Figura 3 representa o fluxo de transação com os pontos de COMMIT e ROLLBACK.
+  </p>
+
+  <figure>
+    <div class="mermaid">
+flowchart TD
+    A([Início]) --> B[BEGIN TRANSACTION]
+    B --> C[INSERT INTO chamados]
+    C --> D{Erro?}
+    D -- Sim --> E[ROLLBACK — Atomicidade]
+    D -- Não --> F[INSERT INTO logs_sql]
+    F --> G[Registrar evento NoSQL]
+    G --> H{OK?}
+    H -- Não --> E
+    H -- Sim --> I[COMMIT — Durabilidade]
+    I --> J([Dados persistidos])
+    E --> K([Nada salvo])
+    </div>
+    <figcaption>Figura 3 — Fluxo de transação com COMMIT e ROLLBACK. Fonte: elaborado pelo autor.</figcaption>
+  </figure>
+
+  <h2>4.3 Modelagem NoSQL e Eventos Documentais</h2>
+
+  <p>
+    A coleção <code>eventos_chamado</code> armazena documentos JSON de schema flexível. O campo <code>dados</code> é livre, permitindo que eventos de tipos distintos coexistam na mesma coleção sem conflito de estrutura — a principal característica que diferencia o modelo documental do relacional. A Figura 4 ilustra a estrutura da coleção NoSQL.
+  </p>
+
+  <figure>
+    <div class="mermaid">
+flowchart TD
+    COL[("Coleção: eventos_chamado")]
+
+    COL --> D1["criacao_chamado\ndados: titulo, status"]
+    COL --> D2["mudanca_status\ndados: status_anterior, novo_status"]
+    COL --> D3["acesso_negado\ndados: usuario, acao_tentada"]
+    COL --> D4["atualizacao_offline\ndados: modo=offline, pendente=true"]
+    COL --> D5["sincronizacao_mobile\ndados: status_sync, conflitos"]
+    </div>
+    <figcaption>Figura 4 — Estrutura da coleção NoSQL com documentos de tipos variados. Fonte: elaborado pelo autor.</figcaption>
+  </figure>
+
+  <p>
+    Em ambiente de produção, esta coleção seria implementada com MongoDB — que armazena os documentos em formato BSON, uma representação binária eficiente de JSON — ou com Firestore, que oferece adicionalmente sincronização em tempo real e persistência offline para aplicações móveis (MONGODB INC., 2026; GOOGLE, 2026).
+  </p>
+
+  <h2>4.4 Demonstração Prática: ACID, Concorrência e Persistência Móvel</h2>
+
+  <p>
+    O arquivo <code>main.py</code> executa um roteiro completo de demonstração. Os principais cenários cobertos são descritos a seguir.
+  </p>
+  <p>
+    <strong>Atomicidade e ROLLBACK.</strong> A função <code>abrir_chamado(simular_erro=True)</code> lança uma exceção intencionalmente após inserir o chamado na tabela SQL, mas antes de inserir o log. O ROLLBACK desfaz a inserção do chamado, garantindo que nenhum registro parcial persiste no banco. A saída no terminal evidencia que o chamado não aparece na listagem final.
+  </p>
+  <p>
+    <strong>Consistência e integridade referencial.</strong> A tentativa de criar um chamado vinculado ao usuário de ID <code>9999</code> (inexistente) é rejeitada pelo SQLite com <code>IntegrityError</code>, demonstrando a restrição de chave estrangeira. O banco permanece em estado consistente.
+  </p>
+  <p>
+    <strong>Controle de acesso (DCL).</strong> O módulo <code>auth.py</code> define a matriz de permissões por perfil. A tentativa de um usuário com perfil <em>cliente</em> de executar a ação <code>resolver_chamado</code> é bloqueada pela função <code>verificar_permissao</code> e registrada como evento <code>acesso_negado</code> no banco NoSQL. A Figura 5 ilustra o fluxo de controle de acesso.
+  </p>
+
+  <figure>
+    <div class="mermaid">
+flowchart TD
+    U([Usuário]) --> REQ[Solicita ação]
+    REQ --> P{Perfil?}
+    P -- admin --> OK1[Permitido — todas ações]
+    P -- tecnico --> CHK1{Ação permitida?}
+    P -- cliente --> CHK2{Ação permitida?}
+    CHK1 -- Sim --> OK2[Executa — COMMIT]
+    CHK1 -- Não --> DENY[Acesso negado]
+    CHK2 -- Sim --> OK3[Executa — COMMIT]
+    CHK2 -- Não --> DENY
+    DENY --> LOG[Evento NoSQL: acesso_negado]
+    </div>
+    <figcaption>Figura 5 — Fluxo de controle de acesso por perfil (simulação de DCL). Fonte: elaborado pelo autor.</figcaption>
+  </figure>
+
+  <p>
+    <strong>Concorrência.</strong> O módulo <code>concurrency_demo.py</code> lança duas <em>threads</em> representando dois técnicos que tentam atualizar o mesmo chamado simultaneamente. O <code>threading.Lock</code> serializa o acesso: a segunda <em>thread</em> aguarda a primeira concluir antes de prosseguir. O log de execução registra a ordem em que as atualizações ocorreram, evidenciando que nenhuma foi perdida.
+  </p>
+  <p>
+    <strong>Sincronização mobile.</strong> O sistema registra sequencialmente dois eventos NoSQL: <code>atualizacao_offline</code> (técnico registrou diagnóstico sem conexão) e <code>sincronizacao_mobile</code> (dados sincronizados com o servidor quando a rede foi restabelecida). Este comportamento simula diretamente o mecanismo de persistência offline do Firebase Firestore.
+  </p>
+  <p>
+    <strong>MapReduce conceitual.</strong> A função <code>mapreduce_contar_por_tipo()</code> lê todos os documentos da coleção JSON e conta as ocorrências de cada tipo de evento. A fase de mapeamento extrai o campo <code>tipo</code> de cada documento; a fase de redução soma as ocorrências por chave. O resultado é exibido em formato visual no terminal, com uma explicação da analogia ao paradigma MapReduce distribuído.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     5. RESULTADOS E CONSIDERAÇÕES FINAIS
+══════════════════════════════════════════════ -->
+<div id="sec5">
+  <h1>5. Resultados e Considerações Finais</h1>
+
+  <p>
+    O desenvolvimento do SmartTicket DB demonstrou, de forma prática e executável, a aplicabilidade dos conceitos fundamentais de banco de dados em um sistema funcional. Todos os requisitos do enunciado foram atendidos: a arquitetura ANSI/SPARC foi contextualizada na estrutura do protótipo; as propriedades ACID foram demonstradas com exemplos de COMMIT e ROLLBACK; o controle de concorrência foi simulado com <em>threads</em> e bloqueio explícito; a segurança e a integridade foram implementadas via perfis de acesso e chaves estrangeiras; e os conceitos de bancos distribuídos, móveis e NoSQL foram abordados tanto na fundamentação teórica quanto na implementação dos eventos documentais e da simulação de sincronização mobile.
+  </p>
+  <p>
+    A adoção de uma arquitetura híbrida SQL/NoSQL revelou-se uma escolha acertada para o contexto do sistema de chamados. A camada relacional garante a consistência dos dados transacionais, enquanto a camada documental oferece a flexibilidade necessária para o registro de eventos heterogêneos sem impor restrições de esquema. Esta combinação, observada em sistemas reais de alta escala como os aplicativos de delivery analisados, demonstra a complementaridade entre os dois paradigmas.
+  </p>
+  <p>
+    Como limitações do protótipo, destaca-se que o SQLite não implementa controle de acesso nativo com <code>GRANT</code> e <code>REVOKE</code>, como fazem PostgreSQL e MySQL, o que exigiu a simulação desta lógica na camada de aplicação. Adicionalmente, a implementação de persistência offline via JSON local é uma simplificação do comportamento real do Firebase Firestore, que inclui mecanismos sofisticados de resolução de conflitos e sincronização bidirecional.
+  </p>
+  <p>
+    Como desdobramentos futuros, o protótipo poderia ser expandido com a substituição do SQLite por PostgreSQL para demonstrar DCL nativa completa, a integração com MongoDB real por meio da biblioteca <code>pymongo</code> para persistência NoSQL distribuída genuína, e a implementação de uma interface de linha de comando interativa para exploração mais rica das funcionalidades. A adição de testes automatizados e a cobertura de cenários de recuperação de falhas com simulação de corrupção de dados também enriqueceriam a demonstração acadêmica.
+  </p>
+  <p>
+    Em síntese, o presente trabalho confirmou que os fundamentos de banco de dados — frequentemente apresentados de forma abstrata nos livros-texto — podem ser demonstrados de maneira concreta, executável e pedagogicamente eficaz por meio de um protótipo acessível, implementado com ferramentas nativas de uma das linguagens de programação mais amplamente adotadas no mercado.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     6. REFERÊNCIAS
+══════════════════════════════════════════════ -->
+<div id="sec6" class="references">
+  <h1>Referências</h1>
+
+  <p>ELMASRI, Ramez; NAVATHE, Shamkant B. <strong>Sistemas de banco de dados.</strong> 6. ed. São Paulo: Pearson, 2011.</p>
+
+  <p>GOOGLE. <strong>Cloud Firestore: Store and sync app data at global scale.</strong> Firebase Documentation, 2026. Disponível em: https://firebase.google.com/docs/firestore. Acesso em: 14 maio 2026.</p>
+
+  <p>KHAN, W. et al. SQL and NoSQL Database Software Architecture Performance Analysis and Assessments: A Systematic Literature Review. <strong>Big Data and Cognitive Computing,</strong> v. 7, n. 2, 2023.</p>
+
+  <p>MONGODB INC. <strong>MongoDB Architecture Guide.</strong> MongoDB Documentation, 2026. Disponível em: https://www.mongodb.com/docs/. Acesso em: 14 maio 2026.</p>
+
+  <p>MONIRUZZAMAN, A. B. M.; HOSSAIN, S. A. NoSQL Database: New Era of Databases for Big data Analytics — Classification, Characteristics and Comparison. <strong>arXiv,</strong> 2013. Disponível em: https://arxiv.org/abs/1307.0191. Acesso em: 14 maio 2026.</p>
+
+  <p>SILBERSCHATZ, A.; KORTH, H. F.; SUDARSHAN, S. <strong>Database System Concepts.</strong> 7. ed. New York: McGraw-Hill, 2020.</p>
+</div>
+
+</body>
+</html>
