@@ -1,59 +1,32 @@
-# Sistemas Distribuídos e Redes de Computadores
+# Trabalhos Acadêmicos — UniEVANGÉLICA
 
 **Instituição:** Universidade Evangélica de Goiás — UniEVANGÉLICA  
-**Disciplina:** Sistemas Distribuídos e Redes de Computadores  
 **Autor:** Lucas Marques Maciel  
 **Ano:** 2026
 
 ---
 
-## Sobre o Projeto
+## Visão Geral
 
-Este repositório contém o trabalho acadêmico da disciplina de **Sistemas Distribuídos e Redes de Computadores**, composto por dois entregáveis:
-
-1. **Relatório Acadêmico** — Estudo teórico sobre sistemas distribuídos com análise de caso do Google Docs e proposta de arquitetura conceitual.
-2. **Implementação Prática** — Aplicação de chat distribuído em Python, demonstrando os conceitos de comunicação cliente-servidor, assincronia e sincronização.
+Este repositório reúne os trabalhos acadêmicos do curso. Cada trabalho está organizado em sua própria pasta, com um `README.md` interno que detalha o conteúdo, os arquivos e as instruções específicas daquele projeto.
 
 ---
 
-## Estrutura do Repositório
+## Trabalhos
 
-```
-📦 Trabalho_Sistemas_Distribuidos_UNIEVA
-├── 📄 README.md                          ← Este arquivo
-├── 📄 LICENSE
-├── 📄 .gitignore
-└── 📁 relatorio-sistemas-distribuidos/
-    ├── 📄 README.md                      ← Documentação técnica da implementação
-    ├── 🐍 server.py                      ← Servidor TCP multithread
-    ├── 🐍 client.py                      ← Cliente TCP com thread de recepção
-    ├── 🌐 index.html                     ← Relatório acadêmico completo (HTML/ABNT)
-    ├── 🎨 style.css                      ← Estilos ABNT para o relatório
-    ├── 🖼️ fig1.svg                       ← Diagrama: arquitetura conceitual do Google Docs
-    ├── 🖼️ fig2.svg                       ← Diagrama: arquitetura cliente-servidor do chat
-    └── 🖼️ fig3.svg                       ← Diagrama: sequência do fluxo de mensagens
-```
+### 1. Sistemas Distribuídos e Redes de Computadores ✅
 
----
+**Pasta:** [`relatorio-sistemas-distribuidos/`](./relatorio-sistemas-distribuidos/)  
+**Disciplina:** Sistemas Distribuídos e Redes de Computadores
 
-## Relatório Acadêmico
+Trabalho composto por duas partes:
 
-O relatório (`index.html`) aborda os seguintes tópicos:
+**Relatório Acadêmico (`index.html`)** — estudo teórico e analítico com os seguintes tópicos:
+- Fundamentação teórica: transparência, escalabilidade, consistência, replicação e Arquitetura Orientada a Serviços (SOA)
+- Estudo de caso do **Google Docs**: Transformação Operacional (OT), sincronização cliente-servidor, componentes do ecossistema Google (Bigtable, Chubby, Spanner)
+- Proposta de arquitetura conceitual em camadas para aplicação colaborativa distribuída
 
-- **Fundamentação Teórica** — Definição, características e desafios de sistemas distribuídos; paradigmas de comunicação; serviços de nomes; coordenação, consistência e replicação; Arquitetura Orientada a Serviços (SOA).
-- **Estudo de Caso: Google Docs** — Análise do mecanismo de colaboração em tempo real, Transformação Operacional (OT), sincronização cliente-servidor e componentes do ecossistema Google (Bigtable, Chubby, Spanner).
-- **Proposta de Arquitetura Conceitual** — Diagrama em camadas de uma aplicação colaborativa distribuída, embasado na literatura de sistemas distribuídos.
-- **Implementação Prática** — Documentação da aplicação de chat desenvolvida, com relação direta aos conceitos teóricos.
-
-> Para visualizar o relatório, abra o arquivo `relatorio-sistemas-distribuidos/index.html` em qualquer navegador.
-
----
-
-## Implementação Prática — Chat Distribuído em Python
-
-Uma aplicação de troca de mensagens em tempo real construída sobre **TCP/IP**, usando exclusivamente a biblioteca padrão do Python.
-
-### Conceitos Demonstrados
+**Implementação Prática (`server.py` + `client.py`)** — aplicação de chat distribuído em Python com:
 
 | Conceito | Implementação |
 |---|---|
@@ -62,73 +35,55 @@ Uma aplicação de troca de mensagens em tempo real construída sobre **TCP/IP**
 | Sincronização (Mutex) | `threading.Lock` protegendo o dicionário de clientes |
 | Tolerância a falhas básica | Tratamento de exceções isolado por thread |
 
-### Pré-requisitos
-
-- Python 3.7 ou superior
-- Nenhuma dependência externa (apenas biblioteca padrão)
-
-### Como Executar
-
-**1. Inicie o servidor** (em um terminal):
-
-```bash
-cd relatorio-sistemas-distribuidos
-python server.py
-```
-
-```
-[Servidor] Aguardando conexões em 0.0.0.0:5000 ...
-[Servidor] Pressione Ctrl+C para encerrar.
-```
-
-**2. Conecte os clientes** (em terminais separados, um por cliente):
-
-```bash
-python client.py
-```
-
-```
-Digite seu apelido: Alice
-Conectado ao servidor 127.0.0.1:5000 como 'Alice'.
-```
-
-Repita o passo 2 em outro terminal com outro apelido (ex.: `Bob`) para simular múltiplos participantes.
-
-### Exemplo de Sessão
-
-```
-# Terminal do Servidor
-[+] Alice conectou-se de 127.0.0.1:52341
-[Alice] Olá, pessoal!
-[+] Bob conectou-se de 127.0.0.1:52342
-[Bob] Oi Alice!
-[-] Alice desconectou-se.
-
-# Terminal do Cliente Alice
-[Servidor] Bob entrou no chat.
-[Bob] Oi Alice!
-/sair
-[Chat] Saindo...
-
-# Terminal do Cliente Bob
-[Alice] Olá, pessoal!
-[Servidor] Alice saiu do chat.
-```
-
-### Comandos Disponíveis
-
-| Comando | Ação |
-|---|---|
-| `/sair` | Encerra a conexão e fecha o programa |
-| `Ctrl+C` | Interrupção de emergência |
+> Para detalhes completos, instruções de execução e exemplos, veja o [`README` da pasta](./relatorio-sistemas-distribuidos/README.md).
 
 ---
 
-## Referências
+### 2. Empreendedorismo e Inovação ✅
 
-- COULOURIS, G. et al. *Sistemas Distribuídos: Conceitos e Projeto*. 5. ed. Porto Alegre: Bookman, 2013.
-- TANENBAUM, A. S.; VAN STEEN, M. *Sistemas Distribuídos: Princípios e Paradigmas*. 2. ed. São Paulo: Pearson Prentice Hall, 2007.
-- ELLIS, C. A.; GIBBS, S. J. Concurrency control in groupware systems. *ACM SIGMOD Record*, v. 18, n. 2, p. 399–407, 1989.
-- FRASER, N. Differential Synchronization. *Google Research*, 2009.
-- CHANG, F. et al. Bigtable: A distributed storage system for structured data. *ACM TOCS*, v. 26, n. 2, 2008.
-- BURROWS, M. The Chubby lock service for loosely-coupled distributed systems. *OSDI*, USENIX, 2006.
+**Pasta:** [`Trabalho_Empreendedorismo_Inovação_Unieva/`](./Trabalho_Empreendedorismo_Inovação_Unieva/)  
+**Disciplina:** Empreendedorismo e Inovação
+
+Relatório acadêmico em HTML com formatação ABNT, exportável como PDF, cobrindo:
+
+- **Fundamentação Teórica:** perfil empreendedor (Schumpeter, 1942), distinção entre invenção, inovação e difusão (Rogers, 2003; OCDE, 2018), tipos de inovação (incremental, radical, disruptiva) e indicadores de esforço e resultado
+- **Estudo de Caso — Nubank:** análise da inovação disruptiva no setor financeiro brasileiro, da infraestrutura em nuvem à democratização do crédito
+- **Projeto Conceitual — SmartTicket:** proposta de plataforma de gestão de chamados baseada em IA, Machine Learning e NLP para automação da triagem de incidentes em ambientes corporativos de TI
+- **Plano Esquemático:** tabela com 5 etapas de desenvolvimento, responsáveis, prazos, recursos e indicadores de acompanhamento
+
+> Para detalhes completos, estrutura de arquivos e instruções de exportação em PDF, veja o [`README` da pasta](./Trabalho_Empreendedorismo_Inovação_Unieva/README.md).
+
+---
+
+### 3. Banco de Dados ⏳ *em breve*
+
+**Pasta:** a ser criada  
+**Disciplina:** Banco de Dados
+
+> Este trabalho ainda não está disponível neste repositório.
+
+---
+
+## Estrutura do Repositório
+
+```
+📦 Trabalho_Sistemas_Distruibuidos_UNIEVA
+│
+├── 📄 README.md                                      ← Este arquivo
+├── 📄 LICENSE
+├── 📄 .gitignore
+│
+├── 📁 relatorio-sistemas-distribuidos/               ← Trabalho 1 — SD
+│   ├── 📄 README.md                                  ← Detalhes do trabalho
+│   ├── 🐍 server.py
+│   ├── 🐍 client.py
+│   ├── 🌐 index.html
+│   ├── 🎨 style.css
+│   └── 🖼️ fig1.svg / fig2.svg / fig3.svg
+│
+└── 📁 Trabalho_Empreendedorismo_Inovação_Unieva/     ← Trabalho 2 — Empreendedorismo
+    ├── 📄 README.md                                  ← Detalhes do trabalho
+    ├── 🌐 index.html
+    ├── 🎨 style.css
+    └── 📄 copia.txt
+```
