@@ -44,6 +44,8 @@ smartticket-db/
     └── controle_acesso.mmd
 ```
 
+Os arquivos em `data/` (`smartticket.db` e `eventos_chamados.json`) são **gerados localmente** ao rodar `main.py`; no repositório, entram em `.gitignore` na raiz do projeto para não versionar dados de execução.
+
 ---
 
 ## Como Executar
@@ -148,7 +150,7 @@ Esta operação é uma analogia simplificada ao paradigma MapReduce (Hadoop/Spar
   atualizacao_concorrente ██ (2)
   sincronizacao_mobile █ (1)
   ...
-  Total de eventos registrados: 9
+  Total de eventos registrados: 10
 ```
 
 ---

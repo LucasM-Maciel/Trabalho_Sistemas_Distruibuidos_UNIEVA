@@ -19,7 +19,7 @@ Isso representa o nível de Isolamento das propriedades ACID.
 import threading
 import time
 from datetime import datetime
-from database_sql import atualizar_status, get_connection
+from database_sql import atualizar_status
 from database_nosql import registrar_evento
 
 # Lock compartilhado — simula o mecanismo de bloqueio do SGBD

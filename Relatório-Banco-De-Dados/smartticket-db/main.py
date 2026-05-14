@@ -24,13 +24,15 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 # Força UTF-8 no terminal do Windows para exibir caracteres especiais
-if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stdout, "reconfigure") and sys.stdout.encoding:
+    if sys.stdout.encoding.lower() != "utf-8":
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except (OSError, ValueError):
+            pass
 
 from database_sql import (
-    inicializar_banco,
     atualizar_status,
-    buscar_usuario,
     listar_chamados,
     abrir_chamado,
     registrar_log_avulso,
@@ -82,8 +84,6 @@ print("    • Técnica Maria  (maria@smartticket.dev)")
 print("    • Cliente Lucas  (lucas@smartticket.dev)")
 
 id_lucas = ids["usuarios"]["lucas"]
-id_joao  = ids["usuarios"]["joao"]
-id_maria = ids["usuarios"]["maria"]
 
 # 2. ABRIR CHAMADO COM SUCESSO (COMMIT)
 secao("2. ABERTURA DE CHAMADO — COMMIT (Atomicidade + Durabilidade)")
@@ -97,6 +97,16 @@ registrar_evento(
     tipo="criacao_chamado",
     origem="sistema",
     dados_extras={"titulo": "Erro ao acessar painel do cliente", "status": "aberto"},
+)
+registrar_evento(
+    id_chamado,
+    tipo="anexo_simulado",
+    origem="Cliente Lucas",
+    dados_extras={
+        "nome_arquivo": "screenshot_erro_403.png",
+        "tipo_mime": "image/png",
+        "bytes_aprox": 84200,
+    },
 )
 print(f"✔ Chamado #{id_chamado} aberto com sucesso.")
 print("  → INSERT chamado + INSERT log_sql executados na mesma transação.")

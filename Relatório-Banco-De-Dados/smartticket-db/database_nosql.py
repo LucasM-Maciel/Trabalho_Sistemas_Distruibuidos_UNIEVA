@@ -43,7 +43,7 @@ def _salvar(dados: dict) -> None:
         json.dump(dados, f, ensure_ascii=False, indent=2)
 
 
-def registrar_evento(id_chamado: int, tipo: str, origem: str,
+def registrar_evento(id_chamado: int | None, tipo: str, origem: str,
                      dados_extras: dict | None = None) -> str:
     """
     Registra um evento documental para um chamado.

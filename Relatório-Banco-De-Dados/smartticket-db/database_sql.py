@@ -123,7 +123,10 @@ def abrir_chamado(id_usuario: int, titulo: str, descricao: str,
           mas antes de inserir o log — o ROLLBACK desfaz tudo.
 
     Returns:
-        ID do chamado criado, ou -1 se houve ROLLBACK.
+        ID do chamado criado (após COMMIT bem-sucedido).
+
+    Raises:
+        Exception: Qualquer erro — com ROLLBACK, nenhum dado permanece no banco.
     """
     conn = get_connection()
     agora = datetime.now().isoformat()
@@ -149,9 +152,9 @@ def abrir_chamado(id_usuario: int, titulo: str, descricao: str,
         conn.commit()   # COMMIT: torna as mudanças permanentes (Durabilidade)
         return id_chamado
 
-    except Exception as e:
+    except Exception:
         conn.rollback()  # ROLLBACK: desfaz tudo (Atomicidade)
-        raise e
+        raise
     finally:
         conn.close()
 
@@ -172,9 +175,9 @@ def atualizar_status(id_chamado: int, novo_status: str,
             (id_chamado, f"Status -> '{novo_status}' por {nome_executor}", agora),
         )
         conn.commit()
-    except Exception as e:
+    except Exception:
         conn.rollback()
-        raise e
+        raise
     finally:
         conn.close()
 

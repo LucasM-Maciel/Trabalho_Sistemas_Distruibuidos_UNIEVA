@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SmartTicket DB — dados gerados localmente pela demonstração Python
+**/smartticket-db/data/*.db
+**/smartticket-db/data/*.json
