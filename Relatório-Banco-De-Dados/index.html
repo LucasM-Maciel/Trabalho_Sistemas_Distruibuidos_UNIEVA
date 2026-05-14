@@ -1,134 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Banco de Dados — SmartTicket DB</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Mermaid para renderizar diagramas inline -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados — SmartTicket DB</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Mermaid para renderizar diagramas inline -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      CAPA
-══════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════ -->
 <div class="cover page-break">
-  <div class="cover-header">
-    <p>UNIVERSIDADE EVANGÉLICA DE GOIÁS — UNIEVANGÉLICA</p>
-    <p>LUCAS MARQUES MACIEL</p>
-  </div>
+    <div class="cover-header">
+        UNIVERSIDADE EVANGÉLICA DE GOIÁS - UNIEVANGÉLICA<br>
+        LUCAS MARQUES MACIEL
+    </div>
 
-  <div>
-    <p class="cover-title">BANCO DE DADOS</p>
-    <p class="cover-subtitle">
-      Fundamentos de SGBD, Propriedades ACID, Controle de Concorrência,
-      Segurança e Integridade, Bancos Distribuídos e Móveis, NoSQL e MapReduce:
-      Teoria e Aplicação Prática com o Protótipo SmartTicket DB
-    </p>
-  </div>
+    <div>
+        <div class="cover-title">BANCO DE DADOS</div>
+        <div class="cover-subtitle">
+            Fundamentos de SGBD, Propriedades ACID, Controle de Concorrência, Segurança e Integridade,
+            Bancos Distribuídos e Móveis, NoSQL e MapReduce:<br>
+            Teoria e Aplicação Prática com o Protótipo SmartTicket DB
+        </div>
+    </div>
 
-  <div class="cover-footer">
-    <p>ANÁPOLIS</p>
-    <p>2026</p>
-  </div>
+    <div class="cover-footer">
+        ANÁPOLIS<br>
+        2026
+    </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      SUMÁRIO
-══════════════════════════════════════════════ -->
-<div id="sumario" class="page-break">
-  <p class="toc-title">SUMÁRIO</p>
-  <ul class="toc-list">
-    <li>
-      <a href="#sec1">1. INTRODUÇÃO</a>
-      <span class="dots"></span>
-      <a href="#sec1">3</a>
-    </li>
-    <li>
-      <a href="#sec2">2. FUNDAMENTAÇÃO TEÓRICA</a>
-      <span class="dots"></span>
-      <a href="#sec2">4</a>
-    </li>
-    <li>
-      <a href="#sec2">2.1 Arquitetura de SGBD e Independência de Dados</a>
-      <span class="dots"></span>
-      <a href="#sec2">4</a>
-    </li>
-    <li>
-      <a href="#sec2">2.2 Transações e Propriedades ACID</a>
-      <span class="dots"></span>
-      <a href="#sec2">5</a>
-    </li>
-    <li>
-      <a href="#sec2">2.3 Controle de Concorrência e Recuperação de Falhas</a>
-      <span class="dots"></span>
-      <a href="#sec2">6</a>
-    </li>
-    <li>
-      <a href="#sec2">2.4 Segurança, Integridade e DCL</a>
-      <span class="dots"></span>
-      <a href="#sec2">7</a>
-    </li>
-    <li>
-      <a href="#sec2">2.5 Paradigmas Distribuídos: Teorema CAP e Replicação</a>
-      <span class="dots"></span>
-      <a href="#sec2">8</a>
-    </li>
-    <li>
-      <a href="#sec2">2.6 Bancos Móveis e Paradigma NoSQL</a>
-      <span class="dots"></span>
-      <a href="#sec2">9</a>
-    </li>
-    <li>
-      <a href="#sec3">3. ESTUDO DE CASO: SISTEMAS DE DELIVERY E ATENDIMENTO</a>
-      <span class="dots"></span>
-      <a href="#sec3">11</a>
-    </li>
-    <li>
-      <a href="#sec4">4. PROTÓTIPO: SMARTTICKET DB</a>
-      <span class="dots"></span>
-      <a href="#sec4">12</a>
-    </li>
-    <li>
-      <a href="#sec4">4.1 Arquitetura Geral do Sistema</a>
-      <span class="dots"></span>
-      <a href="#sec4">12</a>
-    </li>
-    <li>
-      <a href="#sec4">4.2 Modelagem Relacional e Transações</a>
-      <span class="dots"></span>
-      <a href="#sec4">13</a>
-    </li>
-    <li>
-      <a href="#sec4">4.3 Modelagem NoSQL e Eventos Documentais</a>
-      <span class="dots"></span>
-      <a href="#sec4">14</a>
-    </li>
-    <li>
-      <a href="#sec4">4.4 Demonstração Prática: ACID, Concorrência e Persistência Móvel</a>
-      <span class="dots"></span>
-      <a href="#sec4">15</a>
-    </li>
-    <li>
-      <a href="#sec5">5. RESULTADOS E CONSIDERAÇÕES FINAIS</a>
-      <span class="dots"></span>
-      <a href="#sec5">17</a>
-    </li>
-    <li>
-      <a href="#sec6">REFERÊNCIAS</a>
-      <span class="dots"></span>
-      <a href="#sec6">18</a>
-    </li>
-  </ul>
+     ════════════════════════════════════════════════════════ -->
+<div class="page-break" id="sumario">
+    <div class="toc-title">SUMÁRIO</div>
+    <ul class="toc-list">
+        <li><a href="#sec1">1. INTRODUÇÃO</a> <span class="dots"></span> <a href="#sec1">3</a></li>
+        <li><a href="#sec2">2. FUNDAMENTAÇÃO TEÓRICA</a> <span class="dots"></span> <a href="#sec2">4</a></li>
+        <li><a href="#sec21">2.1 Arquitetura de SGBD e Independência de Dados</a> <span class="dots"></span> <a href="#sec21">4</a></li>
+        <li><a href="#sec22">2.2 Transações e Propriedades ACID</a> <span class="dots"></span> <a href="#sec22">4</a></li>
+        <li><a href="#sec23">2.3 Controle de Concorrência e Recuperação de Falhas</a> <span class="dots"></span> <a href="#sec23">5</a></li>
+        <li><a href="#sec24">2.4 Segurança, Integridade e DCL</a> <span class="dots"></span> <a href="#sec24">5</a></li>
+        <li><a href="#sec25">2.5 Paradigmas Distribuídos: Teorema CAP e Replicação</a> <span class="dots"></span> <a href="#sec25">6</a></li>
+        <li><a href="#sec26">2.6 Bancos Móveis e Paradigma NoSQL</a> <span class="dots"></span> <a href="#sec26">7</a></li>
+        <li><a href="#sec3">3. ESTUDO DE CASO: ARQUITETURA EM SISTEMAS DE DELIVERY E ATENDIMENTO</a> <span class="dots"></span> <a href="#sec3">9</a></li>
+        <li><a href="#sec31">3.1 Escalabilidade, Segurança e Sincronização Off-line no Cenário Real</a> <span class="dots"></span> <a href="#sec31">9</a></li>
+        <li><a href="#sec4">4. PROTÓTIPO PRÁTICO: SMARTTICKET DB</a> <span class="dots"></span> <a href="#sec4">11</a></li>
+        <li><a href="#sec41">4.1 Arquitetura Geral do Sistema</a> <span class="dots"></span> <a href="#sec41">11</a></li>
+        <li><a href="#sec42">4.2 Modelagem Relacional e Transações</a> <span class="dots"></span> <a href="#sec42">12</a></li>
+        <li><a href="#sec43">4.3 Modelagem NoSQL e Eventos Documentais</a> <span class="dots"></span> <a href="#sec43">13</a></li>
+        <li><a href="#sec44">4.4 Demonstração Prática: ACID, Concorrência e Persistência Móvel</a> <span class="dots"></span> <a href="#sec44">14</a></li>
+        <li><a href="#sec5">5. RESULTADOS E CONSIDERAÇÕES FINAIS</a> <span class="dots"></span> <a href="#sec5">16</a></li>
+        <li><a href="#sec6">6. REFERÊNCIAS BIBLIOGRÁFICAS</a> <span class="dots"></span> <a href="#sec6">17</a></li>
+    </ul>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      1. INTRODUÇÃO
-══════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════ -->
 <div id="sec1">
-  <h1>1. Introdução</h1>
+    <h1>1. INTRODUÇÃO</h1>
 
   <p>
     Os sistemas de gerenciamento de banco de dados (SGBDs) ocupam posição central na infraestrutura tecnológica contemporânea. Desde os sistemas transacionais que processam operações financeiras até as plataformas de atendimento ao cliente, passando pelos aplicativos móveis que operam em condições de conectividade intermitente, a gestão eficiente e confiável dos dados constitui requisito indispensável para a continuidade dos negócios e a integridade das informações.
@@ -144,13 +81,13 @@
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      2. FUNDAMENTAÇÃO TEÓRICA
-══════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════ -->
 <div id="sec2">
-  <h1>2. Fundamentação Teórica</h1>
+    <h1>2. FUNDAMENTAÇÃO TEÓRICA</h1>
 
-  <h2>2.1 Arquitetura de SGBD e Independência de Dados</h2>
+    <h2 id="sec21">2.1 Arquitetura de SGBD e Independência de Dados</h2>
 
   <p>
     A arquitetura de três esquemas proposta pelo comitê ANSI/SPARC divide a estrutura de um sistema de banco de dados em três níveis: interno, conceitual e externo. O nível interno, também denominado nível físico, descreve como os dados são efetivamente armazenados nos dispositivos de hardware, incluindo estruturas de arquivo, índices e alocação de blocos de disco. O nível conceitual define a estrutura lógica global do banco, com as entidades, atributos, relacionamentos e restrições de integridade. O nível externo, por sua vez, apresenta visões personalizadas dos dados para diferentes grupos de usuários ou aplicações, exibindo apenas as informações relevantes para cada contexto (ELMASRI; NAVATHE, 2011).
@@ -162,7 +99,7 @@
     No contexto do protótipo SmartTicket DB, esta arquitetura se manifesta da seguinte forma: a aplicação Python (nível externo) interage com as tabelas <code>usuarios</code>, <code>chamados</code> e <code>logs_sql</code> (nível conceitual) por meio de funções abstratas, sem precisar conhecer os detalhes de como o SQLite organiza os dados no arquivo <code>.db</code> no disco (nível interno). A substituição do SQLite por PostgreSQL, por exemplo, exigiria apenas a alteração da camada de conexão, sem impacto na lógica de negócio.
   </p>
 
-  <h2>2.2 Transações e Propriedades ACID</h2>
+  <h2 id="sec22">2.2 Transações e Propriedades ACID</h2>
 
   <p>
     Uma transação é definida como uma unidade lógica indivisível de trabalho, composta por uma ou mais operações de acesso ao banco de dados — leituras e escritas. Uma transação deve ser executada em sua totalidade ou, em caso de falha, desfeita completamente, de modo que o banco retorne ao estado anterior ao início da operação (ELMASRI; NAVATHE, 2011).
@@ -180,7 +117,7 @@
     Os comandos que delimitam uma transação são: <code>BEGIN</code> (ou implícito no SQLite), que marca o início; <code>COMMIT</code>, que confirma todas as operações; e <code>ROLLBACK</code>, que as desfaz. No protótipo, a abertura de um chamado utiliza uma transação que insere registros em duas tabelas simultaneamente — se qualquer etapa falha, o ROLLBACK garante que nenhum dado parcial persiste.
   </p>
 
-  <h2>2.3 Controle de Concorrência e Recuperação de Falhas</h2>
+  <h2 id="sec23">2.3 Controle de Concorrência e Recuperação de Falhas</h2>
 
   <p>
     Em sistemas multiusuário, múltiplas transações podem ser executadas simultaneamente, compartilhando o acesso aos mesmos recursos. Sem mecanismos de controle, problemas como leitura suja (<em>dirty read</em>), leitura não repetível (<em>non-repeatable read</em>) e atualização perdida (<em>lost update</em>) podem comprometer a integridade dos dados (ELMASRI; NAVATHE, 2011).
@@ -195,7 +132,7 @@
     No protótipo SmartTicket DB, o controle de concorrência é simulado por meio de <code>threading.Lock</code>, que garante exclusão mútua na seção crítica de atualização de chamados. A recuperação de falhas é representada pelo mecanismo de ROLLBACK automático em resposta a exceções.
   </p>
 
-  <h2>2.4 Segurança, Integridade e DCL</h2>
+  <h2 id="sec24">2.4 Segurança, Integridade e DCL</h2>
 
   <p>
     A segurança em banco de dados abrange os mecanismos de controle de acesso que protegem os dados contra acessos não autorizados, modificações indevidas e divulgações inadequadas. O modelo de controle de acesso discricionário (DAC — <em>Discretionary Access Control</em>), implementado na DCL (<em>Data Control Language</em>), concede aos proprietários dos objetos a capacidade de determinar quem pode acessá-los e com que permissões.
@@ -207,7 +144,7 @@
     A integridade dos dados é garantida por restrições definidas no nível conceitual do banco: chaves primárias asseguram unicidade, chaves estrangeiras garantem a integridade referencial entre tabelas, restrições de domínio limitam os valores válidos para atributos, e restrições de entidade impedem valores nulos em atributos identificadores. O SQLite implementa estas restrições, mas requer a ativação explícita da verificação de chaves estrangeiras por meio do comando <code>PRAGMA foreign_keys = ON</code>.
   </p>
 
-  <h2>2.5 Paradigmas Distribuídos: Teorema CAP e Replicação</h2>
+  <h2 id="sec25">2.5 Paradigmas Distribuídos: Teorema CAP e Replicação</h2>
 
   <p>
     Um banco de dados distribuído é um conjunto de bancos de dados logicamente inter-relacionados, distribuídos por uma rede de computadores, que o usuário percebe como um único sistema de banco de dados (ELMASRI; NAVATHE, 2011). A distribuição dos dados é realizada por meio de replicação (cópias dos dados em múltiplos nós) e fragmentação (divisão dos dados em partições distribuídas entre nós).
@@ -222,7 +159,7 @@
     No contexto do protótipo, a camada NoSQL de eventos documentais poderia, em ambiente de produção, operar em um cluster distribuído com replicação entre nós, adotando consistência eventual para suportar alto volume de eventos de log com baixa latência de escrita.
   </p>
 
-  <h2>2.6 Bancos Móveis e Paradigma NoSQL</h2>
+  <h2 id="sec26">2.6 Bancos Móveis e Paradigma NoSQL</h2>
 
   <p>
     Os bancos de dados para aplicações móveis constituem uma extensão dos sistemas distribuídos adaptada às características peculiares dos dispositivos móveis: conectividade intermitente, energia limitada e requisitos de resposta em tempo real. O principal desafio técnico é a sincronização de dados entre o armazenamento local do dispositivo e o servidor central, com resolução de conflitos quando operações realizadas offline são submetidas ao servidor (GOOGLE, 2026).
@@ -241,17 +178,17 @@
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      3. ESTUDO DE CASO
-══════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════ -->
 <div id="sec3">
-  <h1>3. Estudo de Caso: Arquitetura em Sistemas de Delivery e Atendimento</h1>
+    <h1>3. ESTUDO DE CASO: ARQUITETURA EM SISTEMAS DE DELIVERY E ATENDIMENTO</h1>
 
   <p>
     Os sistemas de delivery por aplicativo, como iFood e UberEats, constituem exemplos paradigmáticos da aplicação simultânea de todos os conceitos abordados neste trabalho. Sua arquitetura de dados é, por natureza, híbrida: combina um banco relacional transacional com bancos documentais de alta disponibilidade, além de sincronização mobile robusta para os dispositivos dos entregadores.
   </p>
 
-  <h2>3.1 Escalabilidade, Segurança e Sincronização Off-line no Cenário Real</h2>
+  <h2 id="sec31">3.1 Escalabilidade, Segurança e Sincronização Off-line no Cenário Real</h2>
 
   <p>
     <strong>Camada SQL transacional.</strong> O processamento de pedidos e pagamentos exige propriedades ACID rigorosas. Uma transação de pedido insere o registro do pedido, desconta o saldo do usuário, registra a cobrança no gateway de pagamento e vincula um entregador disponível — tudo atomicamente. Uma falha em qualquer etapa deve acionar ROLLBACK para evitar cobranças sem entrega ou pedidos sem pagamento. O controle de acesso via DCL restringe quais sistemas podem modificar tabelas financeiras, utilizando papéis (<em>roles</em>) com permissões de <code>INSERT</code> e <code>UPDATE</code> apenas para os serviços autorizados.
@@ -270,17 +207,17 @@
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      4. PROTÓTIPO
-══════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════ -->
 <div id="sec4">
-  <h1>4. Protótipo Prático: SmartTicket DB</h1>
+    <h1>4. PROTÓTIPO PRÁTICO: SMARTTICKET DB</h1>
 
   <p>
     O SmartTicket DB é um protótipo acadêmico de sistema de gestão de chamados, implementado em Python com SQLite (camada SQL) e arquivo JSON local (camada NoSQL documental). Todas as bibliotecas utilizadas são nativas do Python 3, dispensando instalação de dependências externas. O protótipo é executado inteiramente via terminal com o comando <code>python main.py</code>.
   </p>
 
-  <h2>4.1 Arquitetura Geral do Sistema</h2>
+  <h2 id="sec41">4.1 Arquitetura Geral do Sistema</h2>
 
   <p>
     A arquitetura do SmartTicket DB é composta por duas camadas de persistência independentes, coordenadas por uma camada de serviço em Python. A Figura 1 ilustra os componentes do sistema e seus relacionamentos.
@@ -319,7 +256,7 @@ flowchart TD
     A camada SQL é responsável pelos dados estruturados e transacionais: perfis, usuários, chamados e logs relacionais. A camada NoSQL armazena eventos documentais de schema flexível associados a cada chamado. A camada de serviço orquestra as operações entre as duas camadas, aplicando o controle de acesso definido em <code>auth.py</code> antes de qualquer operação de escrita.
   </p>
 
-  <h2>4.2 Modelagem Relacional e Transações</h2>
+  <h2 id="sec42">4.2 Modelagem Relacional e Transações</h2>
 
   <p>
     O modelo relacional é composto por quatro tabelas com relacionamentos definidos por chaves estrangeiras. A instrução <code>PRAGMA foreign_keys = ON</code> é executada em toda conexão SQLite para ativar a verificação de integridade referencial. A Figura 2 apresenta o Modelo Entidade-Relacionamento do banco SQL.
@@ -381,7 +318,7 @@ flowchart TD
     <figcaption>Figura 3 — Fluxo de transação com COMMIT e ROLLBACK. Fonte: elaborado pelo autor.</figcaption>
   </figure>
 
-  <h2>4.3 Modelagem NoSQL e Eventos Documentais</h2>
+  <h2 id="sec43">4.3 Modelagem NoSQL e Eventos Documentais</h2>
 
   <p>
     A coleção <code>eventos_chamado</code> armazena documentos JSON de schema flexível. O campo <code>dados</code> é livre, permitindo que eventos de tipos distintos coexistam na mesma coleção sem conflito de estrutura — a principal característica que diferencia o modelo documental do relacional. A Figura 4 ilustra a estrutura da coleção NoSQL.
@@ -405,7 +342,7 @@ flowchart TD
     Em ambiente de produção, esta coleção seria implementada com MongoDB — que armazena os documentos em formato BSON, uma representação binária eficiente de JSON — ou com Firestore, que oferece adicionalmente sincronização em tempo real e persistência offline para aplicações móveis (MONGODB INC., 2026; GOOGLE, 2026).
   </p>
 
-  <h2>4.4 Demonstração Prática: ACID, Concorrência e Persistência Móvel</h2>
+  <h2 id="sec44">4.4 Demonstração Prática: ACID, Concorrência e Persistência Móvel</h2>
 
   <p>
     O arquivo <code>main.py</code> executa um roteiro completo de demonstração. Os principais cenários cobertos são descritos a seguir.
@@ -448,11 +385,11 @@ flowchart TD
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- ════════════════════════════════════════════════════════
      5. RESULTADOS E CONSIDERAÇÕES FINAIS
-══════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════════════ -->
 <div id="sec5">
-  <h1>5. Resultados e Considerações Finais</h1>
+    <h1>5. RESULTADOS E CONSIDERAÇÕES FINAIS</h1>
 
   <p>
     O desenvolvimento do SmartTicket DB demonstrou, de forma prática e executável, a aplicabilidade dos conceitos fundamentais de banco de dados em um sistema funcional. Todos os requisitos do enunciado foram atendidos: a arquitetura ANSI/SPARC foi contextualizada na estrutura do protótipo; as propriedades ACID foram demonstradas com exemplos de COMMIT e ROLLBACK; o controle de concorrência foi simulado com <em>threads</em> e bloqueio explícito; a segurança e a integridade foram implementadas via perfis de acesso e chaves estrangeiras; e os conceitos de bancos distribuídos, móveis e NoSQL foram abordados tanto na fundamentação teórica quanto na implementação dos eventos documentais e da simulação de sincronização mobile.
@@ -471,23 +408,23 @@ flowchart TD
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     6. REFERÊNCIAS
-══════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════
+     6. REFERÊNCIAS BIBLIOGRÁFICAS
+     ════════════════════════════════════════════════════════ -->
 <div id="sec6" class="references">
-  <h1>Referências</h1>
+    <h1>6. REFERÊNCIAS BIBLIOGRÁFICAS</h1>
 
-  <p>ELMASRI, Ramez; NAVATHE, Shamkant B. <strong>Sistemas de banco de dados.</strong> 6. ed. São Paulo: Pearson, 2011.</p>
+    <p>ELMASRI, Ramez; NAVATHE, Shamkant B. <strong>Sistemas de banco de dados.</strong> 6. ed. São Paulo: Pearson, 2011.</p>
 
-  <p>GOOGLE. <strong>Cloud Firestore: Store and sync app data at global scale.</strong> Firebase Documentation, 2026. Disponível em: https://firebase.google.com/docs/firestore. Acesso em: 14 maio 2026.</p>
+    <p>GOOGLE. <strong>Cloud Firestore: Store and sync app data at global scale.</strong> Firebase Documentation, 2026. Disponível em: https://firebase.google.com/docs/firestore. Acesso em: 14 maio 2026.</p>
 
-  <p>KHAN, W. et al. SQL and NoSQL Database Software Architecture Performance Analysis and Assessments: A Systematic Literature Review. <strong>Big Data and Cognitive Computing,</strong> v. 7, n. 2, 2023.</p>
+    <p>KHAN, W. et al. SQL and NoSQL Database Software Architecture Performance Analysis and Assessments: A Systematic Literature Review. <strong>Big Data and Cognitive Computing,</strong> v. 7, n. 2, 2023.</p>
 
-  <p>MONGODB INC. <strong>MongoDB Architecture Guide.</strong> MongoDB Documentation, 2026. Disponível em: https://www.mongodb.com/docs/. Acesso em: 14 maio 2026.</p>
+    <p>MONGODB INC. <strong>MongoDB Architecture Guide.</strong> MongoDB Documentation, 2026. Disponível em: https://www.mongodb.com/docs/. Acesso em: 14 maio 2026.</p>
 
-  <p>MONIRUZZAMAN, A. B. M.; HOSSAIN, S. A. NoSQL Database: New Era of Databases for Big data Analytics — Classification, Characteristics and Comparison. <strong>arXiv,</strong> 2013. Disponível em: https://arxiv.org/abs/1307.0191. Acesso em: 14 maio 2026.</p>
+    <p>MONIRUZZAMAN, A. B. M.; HOSSAIN, S. A. NoSQL Database: New Era of Databases for Big data Analytics — Classification, Characteristics and Comparison. <strong>arXiv,</strong> 2013. Disponível em: https://arxiv.org/abs/1307.0191. Acesso em: 14 maio 2026.</p>
 
-  <p>SILBERSCHATZ, A.; KORTH, H. F.; SUDARSHAN, S. <strong>Database System Concepts.</strong> 7. ed. New York: McGraw-Hill, 2020.</p>
+    <p>SILBERSCHATZ, A.; KORTH, H. F.; SUDARSHAN, S. <strong>Database System Concepts.</strong> 7. ed. New York: McGraw-Hill, 2020.</p>
 </div>
 
 </body>

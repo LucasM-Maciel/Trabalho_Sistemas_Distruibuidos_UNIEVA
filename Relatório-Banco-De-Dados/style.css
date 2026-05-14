@@ -48,9 +48,11 @@ body {
     break-before: page;
 }
 
+/* Capítulos seguintes iniciam em nova página (como nos demais relatórios) */
+#sec3,
+#sec4,
 #sec5,
-#sec6,
-#sec7 {
+#sec6 {
     page-break-before: always;
     break-before: page;
 }
@@ -342,8 +344,7 @@ figcaption {
     #sec3,
     #sec4,
     #sec5,
-    #sec6,
-    #sec7 {
+    #sec6 {
         background: #fff;
         max-width: 21cm;
         margin: 0 auto 0.8cm;
@@ -379,7 +380,7 @@ figcaption {
     .cover,
     #sumario,
     #sec1, #sec2, #sec3, #sec4,
-    #sec5, #sec6, #sec7 {
+    #sec5, #sec6 {
         box-shadow: none !important;
         padding: 0 !important;
         margin: 0 !important;
