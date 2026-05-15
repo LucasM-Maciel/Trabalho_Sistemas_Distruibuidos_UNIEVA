@@ -3,15 +3,16 @@ main.py — SmartTicket DB: Demonstração Acadêmica Completa
 
 Executa um roteiro completo que demonstra, de forma didática:
     1. Inicialização do banco SQL e NoSQL
-    2. Criação de perfis e usuários
-    3. Abertura de chamado com COMMIT
-    4. Tentativa de abertura com ROLLBACK (falha simulada)
-    5. Tentativa de operação com usuário inexistente (integridade referencial)
-    6. Controle de acesso por perfil (simulação de DCL)
-    7. Atualização de status por técnico
-    8. Simulação de concorrência com threading.Lock
-    9. Sincronização mobile (evento NoSQL)
-    10. Contagem MapReduce dos eventos por tipo
+    2. Abertura de chamado com COMMIT
+    3. ROLLBACK simulado
+    4. Integridade referencial (usuário inexistente)
+    5. Simulação de DCL (inclui consultar, atualização negada ao cliente)
+    6. Atualização por técnico
+    7. Consulta pelos chamados do cliente + evento NoSQL tipo «mensagem»
+    8. Concorrência (threading.Lock)
+    9. Sincronização mobile (NoSQL)
+    10. MapReduce (contagem por tipo de evento)
+    11. Resumo final
 
 Execute com:
     python main.py
@@ -34,6 +35,7 @@ if hasattr(sys.stdout, "reconfigure") and sys.stdout.encoding:
 from database_sql import (
     atualizar_status,
     listar_chamados,
+    listar_chamados_por_usuario,
     abrir_chamado,
     registrar_log_avulso,
 )
@@ -159,6 +161,8 @@ testes = [
     ("tecnico", "atualizar_status",  True),
     ("tecnico", "administrar",       False),
     ("cliente", "abrir_chamado",     True),
+    ("cliente", "consultar_chamado", True),
+    ("cliente", "atualizar_status",  False),
     ("cliente", "resolver_chamado",  False),
 ]
 
@@ -185,6 +189,23 @@ if not verificar_permissao(perfil_lucas, acao_tentada):
     )
     print("  → Tentativa registrada no log NoSQL (Segurança + Auditoria).")
 
+print("\nSimulando cliente tentando atualizar_status (sem permissão):")
+acao_cli_status = "atualizar_status"
+if not verificar_permissao(perfil_lucas, acao_cli_status):
+    print(f"✘ Acesso negado: perfil '{perfil_lucas}' não pode '{acao_cli_status}'")
+    registrar_evento(
+        id_chamado,
+        tipo="acesso_negado",
+        origem="cliente",
+        dados_extras={
+            "usuario": "Cliente Lucas",
+            "acao_tentada": acao_cli_status,
+            "valor_pretendido": "em atendimento",
+            "motivo": "Cliente apenas abre e consulta chamados; apenas técnico/admin alteram status",
+        },
+    )
+    print("  → Cenário de atualização sem permissão também registrado no NoSQL.\n")
+
 # 6. ATUALIZAÇÃO POR TÉCNICO
 secao("6. ATUALIZAÇÃO DE STATUS — Técnico João")
 if verificar_permissao("tecnico", "atualizar_status"):
@@ -198,12 +219,32 @@ if verificar_permissao("tecnico", "atualizar_status"):
     print(f"✔ Chamado #{id_chamado} atualizado para 'em atendimento'.")
     print("  → UPDATE + INSERT log_sql em transação única (COMMIT).")
 
-# 7. CONCORRÊNCIA
-secao("7. CONTROLE DE CONCORRÊNCIA — threading.Lock")
+# 7. CLIENTE CONSULTA SEUS CHAMADOS & EVENTO TIPO «MENSAGEM» (schema flexível NoSQL)
+secao("7. CONSULTA CLIENTE — permissão «consultar_chamado» + evento «mensagem»")
+if verificar_permissao("cliente", "consultar_chamado"):
+    meus = listar_chamados_por_usuario(id_lucas)
+    print(f"Cliente Lucas ({perfil_lucas}): permissão OK para consultar_chamado.")
+    print(f"Meus chamados no SQL ({len(meus)}):")
+    for c in meus:
+        print(f"  #{c['id_chamado']} [{c['status']}] {c['titulo']}")
+
+registrar_evento(
+    id_chamado,
+    tipo="mensagem",
+    origem="Cliente Lucas",
+    dados_extras={
+        "corpo": "Oi, já tem previsão? Continuo sem acesso ao painel.",
+        "canal": "portal_web",
+    },
+)
+print("\n✔ Evento NoSQL tipo 'mensagem' (documento heterogêneo) registrado no chamado.\n")
+
+# 8. CONCORRÊNCIA
+secao("8. CONTROLE DE CONCORRÊNCIA — threading.Lock")
 simular_concorrencia(id_chamado)
 
-# 8. SINCRONIZAÇÃO MOBILE
-secao("8. SINCRONIZAÇÃO MOBILE (Banco Distribuído / Offline)")
+# 9. SINCRONIZAÇÃO MOBILE
+secao("9. SINCRONIZAÇÃO MOBILE (Banco Distribuído / Offline)")
 print("Simulando técnico registrando atualização offline via app mobile...")
 registrar_evento(
     id_chamado,
@@ -235,8 +276,8 @@ print("  → Evento 'sincronizacao_mobile' persistido no NoSQL.")
 print("  → Status do chamado atualizado para 'resolvido'.")
 print("  → Equivale ao comportamento do Firebase Firestore offline persistence.")
 
-# 9. MAPREDUCE
-secao("9. MapReduce Conceitual — Contagem de Eventos por Tipo")
+# 10. MAPREDUCE
+secao("10. MapReduce Conceitual — Contagem de Eventos por Tipo")
 print("Fase MAP: extraindo o campo 'tipo' de cada documento da coleção...")
 print("Fase REDUCE: somando ocorrências por tipo...\n")
 contagem = mapreduce_contar_por_tipo()
@@ -248,8 +289,8 @@ print(f"\n  Total de eventos registrados: {total}")
 print("  → Em produção, este MapReduce seria executado em cluster")
 print("     (Hadoop/Spark) sobre milhões de documentos distribuídos.")
 
-# 10. RESUMO FINAL
-secao("10. RESUMO FINAL — Estado do Sistema")
+# 11. RESUMO FINAL
+secao("11. RESUMO FINAL — Estado do Sistema")
 chamados = listar_chamados()
 print(f"Chamados no banco SQL: {len(chamados)}")
 for c in chamados:

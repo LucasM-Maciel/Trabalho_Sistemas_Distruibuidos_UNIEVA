@@ -210,6 +210,22 @@ def listar_chamados() -> list:
         conn.close()
 
 
+def listar_chamados_por_usuario(id_usuario: int) -> list:
+    """Lista chamados apenas do usuário (visão típica do perfil cliente)."""
+    conn = get_connection()
+    try:
+        return conn.execute(
+            """SELECT c.id_chamado, u.nome AS usuario, c.titulo,
+                      c.status, c.criado_em
+               FROM chamados c JOIN usuarios u ON c.id_usuario = u.id_usuario
+               WHERE c.id_usuario = ?
+               ORDER BY c.id_chamado""",
+            (id_usuario,),
+        ).fetchall()
+    finally:
+        conn.close()
+
+
 def registrar_log_avulso(id_chamado: int | None, acao: str,
                           detalhes: str) -> None:
     """Registra um log SQL independente de uma transação de chamado."""

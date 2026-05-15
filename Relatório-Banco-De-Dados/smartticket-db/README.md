@@ -90,7 +90,7 @@ O módulo `auth.py` define uma matriz de permissões por perfil, simulando o com
 "cliente": {"abrir_chamado", "consultar_chamado"}
 ```
 
-Tentativas não autorizadas são bloqueadas e registradas no log NoSQL como `acesso_negado`.
+Tentativas não autorizadas (por exemplo `resolver_chamado` ou `atualizar_status` com perfil **cliente**) são bloqueadas e registradas como `acesso_negado` no JSON. Clientes só **consultam** os próprios chamados (`consultar_chamado` + `listar_chamados_por_usuario`) e podem registrar eventos tipo **`mensagem`** no NoSQL.
 
 ### Integridade Referencial
 `PRAGMA foreign_keys = ON` ativa as restrições de chave estrangeira no SQLite. Tentar criar um chamado para um `id_usuario` inexistente gera `IntegrityError` e aciona ROLLBACK automático.
@@ -150,7 +150,7 @@ Esta operação é uma analogia simplificada ao paradigma MapReduce (Hadoop/Spar
   atualizacao_concorrente ██ (2)
   sincronizacao_mobile █ (1)
   ...
-  Total de eventos registrados: 10
+  Total de eventos registrados: 12
 ```
 
 ---
