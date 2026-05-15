@@ -34,7 +34,6 @@ Relatório-Banco-De-Dados/
 ├── index.html           ← Relatório acadêmico (abrir no navegador → Ctrl+P → PDF)
 ├── style.css            ← Estilo ABNT (A4, Times New Roman, margens ABNT)
 ├── README.md            ← Este arquivo
-├── base.txt             ← Base teórica de referência utilizada na elaboração
 └── smartticket-db/      ← Protótipo funcional em Python
     ├── main.py
     ├── database_sql.py
