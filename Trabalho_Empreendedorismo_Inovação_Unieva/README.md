@@ -34,7 +34,7 @@ Relatório acadêmico que articula os fundamentos teóricos do empreendedorismo 
 | 5. Projeto SmartTicket | Problema, solução, objetivos, etapas, riscos e melhorias futuras |
 | 6. Plano Esquemático | Tabela com 5 etapas, responsáveis, recursos, prazos e indicadores |
 | 7. Conclusão | Síntese dos conceitos e aplicações |
-| 8. Referências | 11 obras em formato ABNT |
+| 8. Referências | Bibliografia em formato ABNT |
 
 ---
 
@@ -44,7 +44,6 @@ Relatório acadêmico que articula os fundamentos teóricos do empreendedorismo 
 |---|---|
 | `index.html` | Relatório acadêmico completo, pronto para exportar como PDF |
 | `style.css` | Formatação ABNT (A4, Times New Roman 12pt, margens, espaçamento 1,5) |
-| `copia.txt` | Rascunho original do relatório usado como base |
 | `README.md` | Este arquivo |
 
 ---
